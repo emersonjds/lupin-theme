@@ -82,8 +82,8 @@ Ruby, Swift, SQL, HTML, CSS, SCSS, JSON, YAML, TOML, Markdown, Shell, Dockerfile
   grammars as VS Code, under the generated Lupin VS Code theme. It fails when:
   - a token the grammar marks as keyword, type, function, string, number, constant,
     comment, annotation or property renders in the default foreground
-  - one hue covers more than 45% of the colored characters in a fixture (JSON, YAML and TOML exempt: keys are their structure, 01 §8)
-  - a fixture shows fewer than 3 syntax hues
+  - one hue covers more than 45% of the colored characters in a fixture (JSON, YAML and TOML exempt: keys are their structure, 01 §8; Dockerfile and Shell exempt: sparse grammars, Dockerfile colors only instructions, strings and comments, shell arguments tokenize as strings)
+  - a fixture shows fewer than 3 syntax hues (Dockerfile exempt: its grammar yields 2)
 - The VS Code theme sets `semanticHighlighting: true` and maps `semanticTokenColors`.
   Language servers for Java, C#, Rust, Go and Kotlin then color by meaning rather than by grammar.
 - Every Zed tree-sitter capture name in schema v0.2.0 maps to a role. Zed grammars share
