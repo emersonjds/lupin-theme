@@ -1,0 +1,36 @@
+# Deployment config for the turso-users-service
+name: turso-users-service
+version: 1.2.0
+
+defaults: &defaults
+  quota: 100
+  active: true
+  deletedAt: null
+
+database:
+  <<: *defaults
+  url: libsql://db.turso.io
+  ratio: 10.4
+  hex: 0x1A
+
+users:
+  - id: u_1
+    email: a@b.io
+    quota: 100
+  - id: u_2
+    email: b@b.io
+    quota: null
+
+env:
+  staging:
+    <<: *defaults
+    replicas: 2
+  production:
+    <<: *defaults
+    quota: 500
+    replicas: 5
+
+tags:
+  - turso
+  - sqlite
+  - edge

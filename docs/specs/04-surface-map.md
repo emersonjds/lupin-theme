@@ -447,7 +447,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `comment.block.documentation` | comment.doc | italic |
 | `string`, `string.quoted` | string | — |
 | `string.quoted.docstring.multi.python` | comment | italic (Dracula precedent: docstrings read as comments) |
-| `constant.numeric` | number | — |
+| `constant.numeric`, `keyword.other.unit` (`0x` prefix in C/C++) | number | — |
 | `constant.language` (`true`/`false`/`null`/`nil`/`None`) | number | — |
 | `constant.character.escape` | escape | — |
 | `constant.other.symbol`, `constant.other.key` | constant | — |
@@ -455,13 +455,13 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `variable.parameter`, `entity.name.variable.parameter` | parameter | italic |
 | `variable.other.constant`, `variable.other.enummember` | constant | — |
 | `variable.other.readwrite`, `variable.other.object`, `variable` | variable | — |
-| `support.variable.property`, `variable.other.property` | property | — |
-| `keyword.control`, `keyword.control.flow`, `keyword.control.return`, `keyword.control.import`, `keyword.control.export` | keyword | — |
+| `support.variable.property`, `variable.other.property`, `support.type.property-name` (fallback, e.g. `max-width` in `@media`) | property | — |
+| `keyword` (fallback for grammar-specific `keyword.other.*`: `import`/`package`/`use`/`namespace`/`new`, Dockerfile and Ruby `keyword.other.special-method`, SQL `keyword.other.sql`/`keyword.other.create.sql`/`keyword.other.DML.II.sql`), `keyword.control`, `keyword.control.flow`, `keyword.control.return`, `keyword.control.import`, `keyword.control.export` | keyword | — |
 | `keyword.operator.new`, `keyword.operator.expression` | keyword | — |
 | `keyword.operator` | operator | — |
 | `storage`, `storage.type`, `storage.modifier` | modifier | — |
 | `storage.type.primitive`, `support.type.primitive` | type | — |
-| `entity.name.type`, `entity.name.type.class`, `entity.other.inherited-class` | type | italic (except declared class name, upright — see override below) |
+| `entity.name.type`, `entity.name.type.class`, `entity.other.inherited-class`, `support.type`, `support.class` (Python `str`, Swift `String`, PHP/Ruby classes, TS `object`) | type | italic (except declared class name, upright — see override below) |
 | `entity.name.class` | type | — (declared class name, upright, Dracula precedent) |
 | `entity.name.type.type-parameter`, `meta.indexer.mappedtype.declaration` | property | italic (generic type param) |
 | `entity.name.function`, `meta.function-call.object`, `support.function` | function | — |
@@ -512,7 +512,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `entity.other.attribute-name.pseudo-class`, `entity.other.attribute-name.pseudo-element` | modifier | — |
 | `support.type.property-name.css` | property | — |
 | `constant.numeric.css`, `keyword.other.unit.css` | number | — |
-| `constant.other.color.rgb-value.css`, `support.constant.color.w3c-standard-color-name.css` | number | (color literal, same role as other literals) |
+| `constant.other.color.rgb-value.css`, `constant.other.color.rgb-value.hex.css`, `support.constant.color.w3c-standard-color-name.css` | number | (color literal, same role as other literals) |
 | `meta.property-value.css`, `support.constant.property-value.css` | fg.base | — |
 | `entity.name.tag.css` (element selector) | type | — |
 | `keyword.control.at-rule` (`@media`) | keyword | — |
@@ -553,13 +553,14 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `storage.modifier.kotlin` (`val`, `var`, `fun`, `data`, `sealed`) | modifier | — |
 | `entity.name.function.kotlin` | function | — |
 | `support.type.primitive.kotlin` | type | italic |
+| `keyword.hard.kotlin` (`val`, `as`, `is`, `in`), `keyword.hard.class.kotlin`, `keyword.hard.fun.kotlin`, `keyword.hard.object.kotlin`, `keyword.hard.typealias.kotlin` | modifier | — (declarations, `01` §8) |
 
 ### C\#
 
 | Scope(s) | Role | fontStyle |
 |---|---|---|
 | `storage.modifier.cs` | modifier | — |
-| `storage.type.cs` (primitives) | type | italic |
+| `storage.type.cs` (primitives), `source.cs keyword.type` (`string`, `int`, `bool`) | type | italic |
 | `punctuation.definition.attribute.cs`, `entity.name.type.attribute.cs` (`[Attr]`) | attribute | italic |
 
 ### Python
@@ -578,6 +579,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `storage.type.go` (primitives) | type | italic |
 | `entity.name.function.go` | function | — |
 | `keyword.import.go` | keyword | — |
+| `keyword.const.go`, `keyword.var.go`, `keyword.type.go`, `keyword.struct.go`, `keyword.interface.go`, `keyword.function.go`, `keyword.map.go`, `keyword.channel.go` | modifier | — (declarations, `01` §8) |
 
 ### Rust
 
@@ -587,6 +589,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `storage.modifier.lifetime.rust` (`'a`) | lifetime | italic |
 | `entity.name.function.macro.rust` (`println!`) | function | — |
 | `meta.attribute.rust` (`#[derive]`) | attribute | italic |
+| `keyword.other.fn.rust` (`fn`) | modifier | — (`use`/`impl`/`as` share `keyword.other.rust` and fall back to keyword) |
 
 ### C / C++
 
@@ -595,13 +598,14 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `storage.type.c`, `storage.type.cpp` (primitives) | type | italic |
 | `keyword.control.import.c`, `meta.preprocessor.c`, `keyword.control.directive.c` (`#include`, `#define`) | preproc | — |
 | `entity.name.function.preprocessor.c` | function | — (macro call) |
+| `keyword.other.typedef.c`, `keyword.other.default.destructor.cpp` (`= default`) | modifier | — |
 
 ### PHP
 
 | Scope(s) | Role | fontStyle |
 |---|---|---|
 | `variable.other.php` (`$var`) | variable | — |
-| `storage.type.php` | type | italic |
+| `storage.type.php`, `keyword.other.type.php` (`string`, `int`) | type | italic |
 | `entity.name.function.php` | function | — |
 
 ### Ruby
@@ -616,7 +620,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 
 | Scope(s) | Role | fontStyle |
 |---|---|---|
-| `storage.modifier.swift` | modifier | — |
+| `storage.modifier.swift`, `keyword.other.declaration-specifier` (`let`, `var`, `private`) | modifier | — |
 | `keyword.expressions-and-types.swift` (primitives/`self`) | type | italic |
 | `support.type.attribute.swift` (`@State`) | attribute | italic |
 
@@ -625,9 +629,9 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | Scope(s) | Role | fontStyle |
 |---|---|---|
 | `keyword.other.DML.sql` (`SELECT`, `INSERT`) | keyword | — |
-| `keyword.other.alias.sql`, `keyword.other.order.sql`, `keyword.operator.logical.sql` (`AS`, `AND`, `OR`, `IN`, `ASC`/`DESC`) | modifier | — (connectives, per `01` §8) |
+| `keyword.other.alias.sql`, `keyword.other.order.sql`, `keyword.operator.logical.sql`, `keyword.other.DDL.create.II.sql` (`AS`, `AND`, `OR`, `IN`, `ASC`/`DESC`, `NOT NULL`, `ON`) | modifier | — (connectives, per `01` §8) |
 | `support.function.sql` | function | — |
-| `support.type.sql` (table-like) | type | — |
+| `support.type.sql` (table-like), `storage.type.sql` (`INTEGER`, `TEXT`) | type | — |
 | `variable.parameter.sql` (column identifiers, fallback) | fg.base | — |
 
 ### Diff / deprecated (editor-adjacent syntax, not the VS Code `diffEditor.*` workbench colors)

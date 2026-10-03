@@ -1,0 +1,26 @@
+{
+  "name": "turso-users-service",
+  "version": "1.2.0",
+  "private": true,
+  "description": "User service backed by libsql/Turso",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "vitest run"
+  },
+  "config": {
+    "defaultQuota": 100,
+    "ratio": 10.4,
+    "hex": "0x1A",
+    "active": true,
+    "deletedAt": null
+  },
+  "users": [
+    { "id": "u_1", "email": "a@b.io", "quota": 100, "active": true },
+    { "id": "u_2", "email": "b@b.io", "quota": null, "active": false }
+  ],
+  "dependencies": {
+    "@libsql/client": "^0.6.0"
+  },
+  "keywords": ["turso", "sqlite", "edge"]
+}

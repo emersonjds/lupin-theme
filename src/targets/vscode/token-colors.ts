@@ -19,7 +19,7 @@ export const tokenColors: TokenColor[] = [
   rule('Doc comment', ['comment.block.documentation'], syntax.comment),
   rule('String', ['string', 'string.quoted'], syntax.string),
   rule('Python docstring', ['string.quoted.docstring.multi.python'], syntax.comment),
-  rule('Number', ['constant.numeric'], syntax.number),
+  rule('Number', ['constant.numeric', 'keyword.other.unit'], syntax.number),
   rule('Language constant', ['constant.language'], syntax.number),
   rule('Escape', ['constant.character.escape'], syntax.escape),
   rule('Symbol and key', ['constant.other.symbol', 'constant.other.key'], syntax.constant),
@@ -27,13 +27,13 @@ export const tokenColors: TokenColor[] = [
   rule('Parameter', ['variable.parameter', 'entity.name.variable.parameter'], syntax.parameter),
   rule('Constant variable', ['variable.other.constant', 'variable.other.enummember'], syntax.constant),
   rule('Variable', ['variable.other.readwrite', 'variable.other.object', 'variable'], syntax.variable),
-  rule('Property', ['support.variable.property', 'variable.other.property'], syntax.property),
-  rule('Control keyword', ['keyword.control', 'keyword.control.flow', 'keyword.control.return', 'keyword.control.import', 'keyword.control.export'], syntax.keyword),
+  rule('Property', ['support.variable.property', 'variable.other.property', 'support.type.property-name'], syntax.property),
+  rule('Control keyword', ['keyword', 'keyword.control', 'keyword.control.flow', 'keyword.control.return', 'keyword.control.import', 'keyword.control.export'], syntax.keyword),
   rule('Expression keyword', ['keyword.operator.new', 'keyword.operator.expression'], syntax.keyword),
   rule('Operator', ['keyword.operator'], syntax.operator),
   rule('Storage and modifiers', ['storage', 'storage.type', 'storage.modifier'], syntax.modifier),
   rule('Primitive type', ['storage.type.primitive', 'support.type.primitive'], syntax.type),
-  rule('Type', ['entity.name.type', 'entity.name.type.class', 'entity.other.inherited-class'], syntax.type),
+  rule('Type', ['entity.name.type', 'entity.name.type.class', 'entity.other.inherited-class', 'support.type', 'support.class'], syntax.type),
   rule('Class name', ['entity.name.class'], syntax.type),
   rule('Type parameter', ['entity.name.type.type-parameter', 'meta.indexer.mappedtype.declaration'], syntax.property),
   rule('Function', ['entity.name.function', 'meta.function-call.object', 'support.function'], syntax.function),
@@ -77,7 +77,7 @@ export const tokenColors: TokenColor[] = [
   rule('CSS pseudo', ['entity.other.attribute-name.pseudo-class', 'entity.other.attribute-name.pseudo-element'], syntax.modifier),
   rule('CSS property', ['support.type.property-name.css'], syntax.property),
   rule('CSS number', ['constant.numeric.css', 'keyword.other.unit.css'], syntax.number),
-  rule('CSS color', ['constant.other.color.rgb-value.css', 'support.constant.color.w3c-standard-color-name.css'], syntax.number),
+  rule('CSS color', ['constant.other.color.rgb-value.css', 'constant.other.color.rgb-value.hex.css', 'support.constant.color.w3c-standard-color-name.css'], syntax.number),
   rule('CSS value', ['meta.property-value.css', 'support.constant.property-value.css'], { color: fg.base }),
   rule('CSS element selector', ['entity.name.tag.css'], syntax.type),
   rule('CSS at-rule', ['keyword.control.at-rule'], syntax.keyword),
@@ -103,13 +103,13 @@ export const tokenColors: TokenColor[] = [
   rule('Java class', ['entity.name.type.class.java'], syntax.type),
 
   // Kotlin
-  rule('Kotlin modifier', ['storage.modifier.kotlin'], syntax.modifier),
+  rule('Kotlin modifier', ['storage.modifier.kotlin', 'keyword.hard.kotlin', 'keyword.hard.class.kotlin', 'keyword.hard.fun.kotlin', 'keyword.hard.object.kotlin', 'keyword.hard.typealias.kotlin'], syntax.modifier),
   rule('Kotlin function', ['entity.name.function.kotlin'], syntax.function),
   rule('Kotlin primitive', ['support.type.primitive.kotlin'], syntax.type),
 
   // C#
   rule('C# modifier', ['storage.modifier.cs'], syntax.modifier),
-  rule('C# primitive', ['storage.type.cs'], syntax.type),
+  rule('C# primitive', ['storage.type.cs', 'source.cs keyword.type'], syntax.type),
   rule('C# attribute', ['punctuation.definition.attribute.cs', 'entity.name.type.attribute.cs'], syntax.attribute),
 
   // Python
@@ -123,21 +123,24 @@ export const tokenColors: TokenColor[] = [
   rule('Go primitive', ['storage.type.go'], syntax.type),
   rule('Go function', ['entity.name.function.go'], syntax.function),
   rule('Go import', ['keyword.import.go'], syntax.keyword),
+  rule('Go declaration', ['keyword.const.go', 'keyword.var.go', 'keyword.type.go', 'keyword.struct.go', 'keyword.interface.go', 'keyword.function.go', 'keyword.map.go', 'keyword.channel.go'], syntax.modifier),
 
   // Rust
   rule('Rust primitive', ['storage.type.core.rust', 'storage.class.std.rust'], syntax.type),
   rule('Rust lifetime', ['storage.modifier.lifetime.rust'], syntax.label),
+  rule('Rust declaration', ['keyword.other.fn.rust'], syntax.modifier),
   rule('Rust macro', ['entity.name.function.macro.rust'], syntax.function),
   rule('Rust attribute', ['meta.attribute.rust'], syntax.attribute),
 
   // C / C++
   rule('C primitive', ['storage.type.c', 'storage.type.cpp'], syntax.type),
+  rule('C declaration', ['keyword.other.typedef.c', 'keyword.other.default.destructor.cpp'], syntax.modifier),
   rule('C preprocessor', ['keyword.control.import.c', 'meta.preprocessor.c', 'keyword.control.directive.c'], syntax.preproc),
   rule('C macro call', ['entity.name.function.preprocessor.c'], syntax.function),
 
   // PHP
   rule('PHP variable', ['variable.other.php'], syntax.variable),
-  rule('PHP type', ['storage.type.php'], syntax.type),
+  rule('PHP type', ['storage.type.php', 'keyword.other.type.php'], syntax.type),
   rule('PHP function', ['entity.name.function.php'], syntax.function),
 
   // Ruby
@@ -146,15 +149,15 @@ export const tokenColors: TokenColor[] = [
   rule('Ruby function', ['entity.name.function.ruby'], syntax.function),
 
   // Swift
-  rule('Swift modifier', ['storage.modifier.swift'], syntax.modifier),
+  rule('Swift modifier', ['storage.modifier.swift', 'keyword.other.declaration-specifier'], syntax.modifier),
   rule('Swift primitive', ['keyword.expressions-and-types.swift'], syntax.type),
   rule('Swift attribute', ['support.type.attribute.swift'], syntax.attribute),
 
   // SQL
   rule('SQL keyword', ['keyword.other.DML.sql'], syntax.keyword),
-  rule('SQL connective', ['keyword.other.alias.sql', 'keyword.other.order.sql', 'keyword.operator.logical.sql'], syntax.modifier),
+  rule('SQL connective', ['keyword.other.alias.sql', 'keyword.other.order.sql', 'keyword.operator.logical.sql', 'keyword.other.DDL.create.II.sql'], syntax.modifier),
   rule('SQL function', ['support.function.sql'], syntax.function),
-  rule('SQL type', ['support.type.sql'], syntax.type),
+  rule('SQL type', ['support.type.sql', 'storage.type.sql'], syntax.type),
   rule('SQL column', ['variable.parameter.sql'], { color: fg.base }),
 
   // Diff

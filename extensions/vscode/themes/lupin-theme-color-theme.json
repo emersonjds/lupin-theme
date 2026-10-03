@@ -324,7 +324,8 @@
     {
       "name": "Number",
       "scope": [
-        "constant.numeric"
+        "constant.numeric",
+        "keyword.other.unit"
       ],
       "settings": {
         "foreground": "#FDA77F"
@@ -404,7 +405,8 @@
       "name": "Property",
       "scope": [
         "support.variable.property",
-        "variable.other.property"
+        "variable.other.property",
+        "support.type.property-name"
       ],
       "settings": {
         "foreground": "#7DD3FC"
@@ -413,6 +415,7 @@
     {
       "name": "Control keyword",
       "scope": [
+        "keyword",
         "keyword.control",
         "keyword.control.flow",
         "keyword.control.return",
@@ -468,7 +471,9 @@
       "scope": [
         "entity.name.type",
         "entity.name.type.class",
-        "entity.other.inherited-class"
+        "entity.other.inherited-class",
+        "support.type",
+        "support.class"
       ],
       "settings": {
         "foreground": "#E0CA3C"
@@ -845,6 +850,7 @@
       "name": "CSS color",
       "scope": [
         "constant.other.color.rgb-value.css",
+        "constant.other.color.rgb-value.hex.css",
         "support.constant.color.w3c-standard-color-name.css"
       ],
       "settings": {
@@ -1014,7 +1020,12 @@
     {
       "name": "Kotlin modifier",
       "scope": [
-        "storage.modifier.kotlin"
+        "storage.modifier.kotlin",
+        "keyword.hard.kotlin",
+        "keyword.hard.class.kotlin",
+        "keyword.hard.fun.kotlin",
+        "keyword.hard.object.kotlin",
+        "keyword.hard.typealias.kotlin"
       ],
       "settings": {
         "foreground": "#B98CCD"
@@ -1050,7 +1061,8 @@
     {
       "name": "C# primitive",
       "scope": [
-        "storage.type.cs"
+        "storage.type.cs",
+        "source.cs keyword.type"
       ],
       "settings": {
         "foreground": "#E0CA3C"
@@ -1144,6 +1156,22 @@
       }
     },
     {
+      "name": "Go declaration",
+      "scope": [
+        "keyword.const.go",
+        "keyword.var.go",
+        "keyword.type.go",
+        "keyword.struct.go",
+        "keyword.interface.go",
+        "keyword.function.go",
+        "keyword.map.go",
+        "keyword.channel.go"
+      ],
+      "settings": {
+        "foreground": "#B98CCD"
+      }
+    },
+    {
       "name": "Rust primitive",
       "scope": [
         "storage.type.core.rust",
@@ -1157,6 +1185,15 @@
       "name": "Rust lifetime",
       "scope": [
         "storage.modifier.lifetime.rust"
+      ],
+      "settings": {
+        "foreground": "#B98CCD"
+      }
+    },
+    {
+      "name": "Rust declaration",
+      "scope": [
+        "keyword.other.fn.rust"
       ],
       "settings": {
         "foreground": "#B98CCD"
@@ -1192,6 +1229,16 @@
       }
     },
     {
+      "name": "C declaration",
+      "scope": [
+        "keyword.other.typedef.c",
+        "keyword.other.default.destructor.cpp"
+      ],
+      "settings": {
+        "foreground": "#B98CCD"
+      }
+    },
+    {
       "name": "C preprocessor",
       "scope": [
         "keyword.control.import.c",
@@ -1223,7 +1270,8 @@
     {
       "name": "PHP type",
       "scope": [
-        "storage.type.php"
+        "storage.type.php",
+        "keyword.other.type.php"
       ],
       "settings": {
         "foreground": "#E0CA3C"
@@ -1270,7 +1318,8 @@
     {
       "name": "Swift modifier",
       "scope": [
-        "storage.modifier.swift"
+        "storage.modifier.swift",
+        "keyword.other.declaration-specifier"
       ],
       "settings": {
         "foreground": "#B98CCD"
@@ -1309,7 +1358,8 @@
       "scope": [
         "keyword.other.alias.sql",
         "keyword.other.order.sql",
-        "keyword.operator.logical.sql"
+        "keyword.operator.logical.sql",
+        "keyword.other.DDL.create.II.sql"
       ],
       "settings": {
         "foreground": "#B98CCD"
@@ -1327,7 +1377,8 @@
     {
       "name": "SQL type",
       "scope": [
-        "support.type.sql"
+        "support.type.sql",
+        "storage.type.sql"
       ],
       "settings": {
         "foreground": "#E0CA3C"
