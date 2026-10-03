@@ -40,5 +40,6 @@ export const palette = {
   redSoft: '#FF666326',
   redFaint: '#FF66631A',
   limeFaint: '#A4DF951A',
+  limeSoft: '#A4DF9526',
   orchidSoft: '#B98CCD26',
 } as const satisfies Record<string, Hex>;

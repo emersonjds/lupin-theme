@@ -18,7 +18,7 @@ describe('contrast gates (01 §5)', () => {
   const overlays: Hex[] = [
     editor.selection, editor.selectionInactive, editor.findMatch, editor.findCurrent, editor.wordHighlight,
     editor.lineCurrent, editor.bracketMatch, editor.invalidBackground, editor.diffAdded, editor.diffDeleted,
-    editor.conflictBackground,
+    editor.diffAddedText, editor.diffDeletedText, editor.conflictBackground,
   ];
   it.each(overlays)('overlay %s keeps every code token at least 3:1', (overlay) => {
     const surface = composite(overlay, bg.base);
