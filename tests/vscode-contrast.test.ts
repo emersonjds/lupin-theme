@@ -23,7 +23,7 @@ const pairs: [string, string, number, string?][] = [
   ['list.hoverForeground', 'list.hoverBackground', text],
   ['gitDecoration.ignoredResourceForeground', 'sideBar.background', secondary],
   ['statusBar.foreground', 'statusBar.background', text],
-  ['statusBar.noFolderForeground', 'statusBar.noFolderBackground', secondary],
+  ['statusBar.noFolderForeground', 'statusBar.noFolderBackground', text],
   ['tab.activeForeground', 'tab.activeBackground', text],
   ['tab.inactiveForeground', 'tab.inactiveBackground', text],
   ['tab.activeBorder', 'tab.activeBackground', secondary],

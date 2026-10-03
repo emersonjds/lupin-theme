@@ -166,7 +166,7 @@ export const colors: Record<string, Hex> = {
   'statusBar.debuggingForeground': status.warning,
   'statusBar.debuggingBorder': status.warning,
   'statusBar.noFolderBackground': bg.deep,
-  'statusBar.noFolderForeground': fg.subtle,
+  'statusBar.noFolderForeground': fg.muted,
   'statusBar.noFolderBorder': border.subtle,
   'statusBarItem.hoverBackground': bg.base,
   'statusBarItem.activeBackground': bg.raised,

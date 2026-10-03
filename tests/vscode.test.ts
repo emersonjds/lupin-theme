@@ -32,7 +32,7 @@ describe('vscode workbench colors', () => {
     ['editorLineNumber.foreground', fg.subtle],
     ['gitDecoration.ignoredResourceForeground', fg.subtle],
     ['activityBar.inactiveForeground', fg.subtle],
-    ['statusBar.noFolderForeground', fg.subtle],
+    ['statusBar.noFolderForeground', fg.muted],
     ['input.placeholderForeground', fg.subtle],
     ['input.border', border.strong],
     ['button.hoverBackground', accent.hover],
