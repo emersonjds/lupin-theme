@@ -77,8 +77,7 @@ export const colors: Record<string, Hex> = {
   // Tabs + editorGroupHeader
   'tab.activeBackground': bg.base,
   'tab.activeForeground': fg.base,
-  'tab.activeBorderTop': accent.base,
-  'tab.activeBorder': bg.base,
+  'tab.activeBorder': accent.base,
   'tab.border': border.subtle,
   'tab.inactiveBackground': bg.deep,
   'tab.inactiveForeground': fg.muted,

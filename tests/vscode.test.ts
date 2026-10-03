@@ -16,6 +16,11 @@ describe('vscode workbench colors', () => {
   it.each(['editor.background', 'editor.foreground', 'editorCursor.foreground', 'focusBorder', 'tab.activeBorder', 'statusBar.background', 'terminal.ansiCyan'])(
     'sets %s', (key) => expect(colors).toHaveProperty([key]));
 
+  it('underlines the active tab with accent, no top border', () => {
+    expect(colors['tab.activeBorder']).toBe(roles.accent.base);
+    expect(colors).not.toHaveProperty(['tab.activeBorderTop']);
+  });
+
   it('paints the editor with bg.base and fg.base', () => {
     expect(colors['editor.background']).toBe(roles.bg.base);
     expect(colors['editor.foreground']).toBe(roles.fg.base);
@@ -26,6 +31,21 @@ describe('vscode token colors', () => {
   it('gives every rule a scope and a hex foreground', () => {
     const broken = tokenColors.filter((rule) => rule.scope.length === 0 || !hexPattern.test(rule.settings.foreground));
     expect(broken).toEqual([]);
+  });
+
+  it('keeps rule names unique', () => {
+    const names = tokenColors.map((rule) => rule.name);
+    expect(names.filter((name, index) => names.indexOf(name) !== index)).toEqual([]);
+  });
+
+  it.each([
+    ['punctuation.definition.string', roles.syntax.string],
+    ['punctuation.definition.template-expression', roles.syntax.escape],
+    ['punctuation.section.embedded', roles.syntax.escape],
+    ['entity.name.namespace', roles.syntax.namespace],
+  ])('colors %s with its role', (scope, style) => {
+    const owners = tokenColors.filter((rule) => rule.scope.includes(scope));
+    expect(owners.map((rule) => rule.settings.foreground)).toEqual([style.color]);
   });
 
   it('uses every syntax role at least once', () => {

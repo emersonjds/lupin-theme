@@ -118,8 +118,8 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 |---|---|---|
 | `tab.activeBackground` | bg.base | |
 | `tab.activeForeground` | fg.base | |
-| `tab.activeBorderTop` | accent | accent spot #2 (shared active-indicator pattern) |
-| `tab.activeBorder` | unset | top border carries the indicator, not bottom |
+| `tab.activeBorder` | accent | accent spot #2 (shared active-indicator pattern); bottom border carries the indicator, matching turso.tech's active-tab underline |
+| `tab.activeBorderTop` | unset | no top border, the bottom underline is the indicator |
 | `tab.border` | border.subtle | |
 | `tab.inactiveBackground` | bg.deep | |
 | `tab.inactiveForeground` | fg.muted | |
@@ -466,9 +466,12 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `entity.name.type.type-parameter`, `meta.indexer.mappedtype.declaration` | property | italic (generic type param) |
 | `entity.name.function`, `meta.function-call.object`, `support.function` | function | — |
 | `meta.decorator variable.other.readwrite`, `meta.decorator variable.other.object` | attribute | italic |
+| `entity.name.namespace` | namespace | — |
 | `entity.name.tag` | tag | — |
 | `entity.other.attribute-name` | attribute | italic |
 | `punctuation`, `punctuation.definition`, `punctuation.separator`, `punctuation.terminator` | punctuation | — |
+| `punctuation.definition.string` (begin/end: `'`, `"`, `` ` ``) | string | — (quotes take the string color, matching turso.tech; after `punctuation` so it wins) |
+| `punctuation.definition.template-expression`, `punctuation.section.embedded` | escape | — (interpolation punctuation, `01` §4 fuchsia) |
 | `punctuation.definition.keyword` | keyword | — |
 | `string.regexp` | regexp | — |
 | `punctuation.definition.string.begin.regexp`, `punctuation.definition.group.regexp`, `punctuation.definition.character-class.regexp` | regexp | — |
@@ -499,7 +502,6 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `entity.name.tag`, `punctuation.definition.tag` | tag | — |
 | `entity.other.attribute-name.html`, `entity.other.attribute-name.jsx` | attribute | italic |
 | `support.class.component` (JSX component tag) | type | — |
-| `punctuation.section.embedded` | punctuation | — |
 | `string.quoted` inside tag attribute | string | — |
 
 ### CSS / SCSS
@@ -635,7 +637,8 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `markup.inserted.diff` | git.added | — |
 | `markup.deleted.diff` | git.deleted | — |
 | `meta.diff.header` | fg.muted | — |
-| `invalid.deprecated` | fg.subtle | strikethrough |
+
+`invalid.deprecated` lives in the Generic group only.
 
 ## 3. VS Code semanticTokenColors
 
