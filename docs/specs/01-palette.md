@@ -22,15 +22,16 @@ All numbers computed (sRGB → OKLab/OKLCH per Ottosson; WCAG 2.x relative lumin
 | fgMuted | `#818C96` | 0.634 0.020 246 | 5.45 | -39.3 | fg.muted, punctuation, operator, link uri | turso gray lifted +0.020 L (§2). Structure glyphs recede; still AA everywhere. |
 | fgSubtle | `#5B758A` | 0.550 0.045 243 | 3.88 | -27.7 | fg.subtle, comment, hint, deprecated, md quote, line numbers (inactive), placeholders, inlay hints, git.ignored, inactive activity-bar icons, ansi bright black | 4.02 deep / 3.88 base / 3.43 raised / 3.23 overlay: the >= 3 secondary tier. Blue-steel on the bg hue (R1). Comments recede by L (-0.085 vs punctuation) and tint (+0.025 C), still read comfortably (§9.4). |
 | fgFaint | `#3D4246` | 0.376 0.010 242 | 1.84 | -8.3 | fg.faint, whitespace, indent.guide.active, disabled text/icons | turso white/20 flattened. 1.91 deep / 1.84 base / 1.63 raised / 1.53 overlay. Decorative only, never content (line numbers, placeholders, git.ignored moved to fgSubtle). |
-| aqua | `#4FF8D2` | 0.884 0.148 174 | 13.97 | -86.8 | accent (single UI accent, R12), cursor, function, method, macro, constant, enum member, md heading, ansi cyan | turso brand. The one saturated signature: "this acts" (calls) and "you are here" (cursor). |
+| aqua | `#4FF8D2` | 0.884 0.148 174 | 13.97 | -86.8 | accent (single UI accent, R12), cursor, function, method, macro, md heading, ansi cyan | turso brand. The one saturated signature: "this acts" (calls) and "you are here" (cursor). |
 | fuchsia | `#E879F9` | 0.748 0.207 322 | 7.60 | -53.5 | keyword (control, import, return), tag, escape, interpolation punctuation, ansi magenta | turso exact. Highest chroma: flow changes and structure break-points jump out. |
 | orchid | `#B98CCD` | 0.706 0.105 315 | 6.85 | -48.5 | storage/modifier (public static final class fn def let), self/this, lifetime, label, preproc, md list marker, git.conflict | Fuchsia hue, half chroma (dC 0.102): declaration words stay in the keyword family but stop shouting (§8). |
 | sky | `#7DD3FC` | 0.828 0.101 230 | 11.21 | -73.1 | property, attribute/annotation/decorator, object/JSON/YAML/TOML key, md link text, UI link, info, git.modified, ansi bright blue | turso exact. Cool, low chroma: names of things inside things, quiet metadata. |
-| emerald | `#34D399` | 0.773 0.153 163 | 9.72 | -65.6 | string, regexp, md inline code, ansi green | turso exact. Literal text: "data, not code". |
+| emerald | `#34D399` | 0.773 0.153 163 | 9.72 | -65.6 | ansi green | turso exact. Was string until §9 #11; kept for the terminal so ANSI output does not change. |
 | yellow | `#E0CA3C` | 0.833 0.155 100 | 11.29 | -73.5 | type, class, interface, generic, enum, constructor, warning, find.* fills, ansi yellow | turso exact. Warm and bright: in type-heavy languages the shape of the program is its types. |
-| peach | `#FDA77F` | 0.804 0.115 46 | 9.80 | -65.7 | number, boolean, null/nil/None, CSS color/unit | New, between turso red and yellow. Literal values: warm like strings but not text. |
+| peach | `#FDA77F` | 0.804 0.115 46 | 9.80 | -65.7 | number, boolean, null/nil/None, constant, enum member, symbol, CSS color/unit | New, between turso red and yellow. Fixed values: everything that cannot change at runtime shares one warm hue (§9 #11). |
 | red | `#FF6663` | 0.704 0.188 24 | 6.53 | -47.3 | error, invalid, git.deleted, ansi red | turso exact. Danger only (R10); never valid code. |
-| lime | `#A4DF95` | 0.845 0.117 139 | 12.08 | -77.4 | success, git.added, ansi bright green | turso exact. UI-only green; never in syntax (keeps the string/function greens from tripling). |
+| lime | `#A4DF95` | 0.845 0.117 139 | 12.08 | -77.4 | success, git.added, ansi bright green | turso exact. UI-only green; never in syntax. |
+| pistachio | `#B9EC89` | 0.885 0.138 131 | 13.73 | -85.4 | string, regexp, md inline code | New (§9 #11). Literal text moved 43° away from function aqua, so the two read apart by hue, not only by lightness. |
 
 ### Terminal-only
 
@@ -54,16 +55,16 @@ Composited on `bg.base`. "min code" = lowest WCAG of every code token color (pun
 
 | Role | Value | Composite | min code | comment | dE vs bg | stacked min code / comment | Note |
 |---|---|---|---|---|---|---|---|
-| accent.soft, selection | `#4FF8D226` | `#173534` | 3.84 | 2.73 | 0.126 | 3.52 / 2.50 | Brand-tinted selection |
-| selection.inactive | `#28394580` | `#1B262F` | 4.49 | 3.19 | 0.080 | 4.27 / 3.03 | Neutral: "dormant" |
-| find.match | `#E0CA3C26` | `#2C2E1D` | 4.04 | 2.87 | 0.118 | 3.70 / 2.63 | |
-| find.current | `#E0CA3C38` + border `#E0CA3C` | `#3B3B20` | 3.34 | 2.38 | 0.171 | 3.04 / 2.16 | dE 0.053 vs find.match; border carries the rest (VS Code `editor.findMatchBorder`; Zed has one search fill, uses find.match) |
-| word.highlight | `#7DD3FC1A` | `#18272F` | 4.47 | 3.18 | 0.081 | 4.11 / 2.92 | dE 0.048 vs selection (different hue) |
-| line.current | `#FFFFFF08` | `#151A1F` | 5.11 | 3.63 | 0.032 | — | |
-| bracket.match | `#4FF8D21A` + border `#4FF8D299` | `#142A2B` | 4.39 | 3.12 | 0.087 | 4.00 / 2.85 | |
-| invalid background | `#FF666326` | `#311F23` | 4.53 | 3.22 | 0.089 | 4.18 / 2.97 | |
-| diff added bg | `#A4DF951A` | `#1C2825` | 4.44 | 3.16 | 0.083 | 4.08 / 2.90 | |
-| diff deleted bg | `#FF66631A` | `#261B20` | 4.86 | 3.46 | 0.061 | 4.48 / 3.18 | |
+| accent.soft, selection | `#4FF8D226` | `#173534` | 3.84 | 2.73 | 0.126 | 3.09 / 2.20 | Brand-tinted selection |
+| selection.inactive | `#28394580` | `#1B262F` | 4.49 | 3.19 | 0.080 | 3.99 / 2.84 | Neutral: "dormant" |
+| find.match | `#E0CA3C26` | `#2C2E1D` | 4.04 | 2.87 | 0.118 | 3.24 / 2.31 | |
+| find.current | `#E0CA3C2C` + border `#E0CA3C` | `#31331E` | 3.77 | 2.68 | 0.138 | 3.06 / 2.18 | dE 0.020 vs find.match; the yellow border carries the difference (§9 #11) (VS Code `editor.findMatchBorder`; Zed has one search fill, uses find.match) |
+| word.highlight | `#7DD3FC1A` | `#18272F` | 4.47 | 3.18 | 0.081 | 3.63 / 2.58 | dE 0.048 vs selection (different hue) |
+| line.current | `#FFFFFF12` | `#1E2428` | 4.58 | 3.26 | 0.073 | — | Brighter wash so the cursor line is found at a glance (§9 #11) |
+| bracket.match | `#4FF8D21A` + border `#4FF8D299` | `#142A2B` | 4.39 | 3.12 | 0.087 | 3.53 / 2.51 | |
+| invalid background | `#FF666326` | `#311F23` | 4.53 | 3.22 | 0.089 | 3.71 / 2.64 | |
+| diff added bg | `#A4DF951A` | `#1C2825` | 4.44 | 3.16 | 0.083 | 3.60 / 2.56 | |
+| diff deleted bg | `#FF66631A` | `#261B20` | 4.86 | 3.46 | 0.061 | 3.99 / 2.84 | |
 | find.mark | `#E0CA3C80` (yellowHalf) | `#776F2A` | — | — | — | — | Overview ruler / minimap only, never under code. 3.64 vs bg.base (find.match at 15% was 1.35) |
 | word.mark | `#7DD3FC80` (skyHalf) | `#45738A` | — | — | — | — | Same lane. 3.62 (word.highlight was 1.22) |
 | selection.mark | `#4FF8D280` (aquaHalf) | `#2E8675` | — | — | — | — | Minimap selection. 4.26 (selection was 1.42) |
@@ -78,7 +79,8 @@ Composited on `bg.base`. "min code" = lowest WCAG of every code token color (pun
 | Value | Decision | Before → after | Why |
 |---|---|---|---|
 | `#0D1318` bg, `#152029` raised, `#283945` border | kept | — | |
-| `#E879F9` keyword, `#7DD3FC` property, `#34D399` string, `#4FF8D2` function/constant | kept | — | all pass every gate except fn/fg protan (§5) |
+| `#E879F9` keyword, `#7DD3FC` property, `#4FF8D2` function | kept | — | all pass every gate except fn/fg protan (§5) |
+| `#34D399` string | **moved** | string → pistachio `#B9EC89`, emerald stays ANSI green | §9 #11 |
 | comment white/35 | **replaced** | `#616569` → `#5B758A` | 3.18 → 3.88:1, Lc -21.8 → -27.7; neutral C 0.008 → bg-hue tint C 0.045 h243 (R1). §9.4 |
 | fg white/90 | kept, flattened | → `#E7E8E8` | 15.23:1 |
 | white/20 label | kept, flattened | → `#3D4246` | decorative only |
@@ -88,16 +90,16 @@ Composited on `bg.base`. "min code" = lowest WCAG of every code token color (pun
 
 Derived (non-turso) values changed in reconciliation: bgDeep `#080E12` → `#080E13` (h 237 → 243, R1; dE 0.002), orchid `#B085C3` → `#B98CCD` (L 0.680 → 0.706, R3; dE 0.026), peach `#FEA47C` → `#FDA77F` (L 0.800 → 0.804, R9 vs red; dE 0.007).
 
-## 3. String `#34D399` vs function `#4FF8D2`
+## 3. String `#B9EC89` vs function `#4FF8D2`
 
 | Metric | Value |
 |---|---|
-| OKLCH | 0.773 0.153 163 vs 0.884 0.148 174 |
-| Hue gap | 11° (close) |
-| OKLab dE | 0.115 |
-| dE deuteranopia / protanopia / tritanopia | 0.113 / 0.119 / 0.112 |
+| OKLCH | 0.885 0.138 131 vs 0.884 0.148 174 |
+| Hue gap | 43° (was 11° with emerald) |
+| OKLab dE | 0.106 |
+| dE deuteranopia / protanopia | 0.095 / 0.089 |
 
-Separation is carried by lightness (ΔL 0.111 >= 0.10, R9), which CVD does not erase. Passes 0.08 normal and 0.05 CVD with margin. **No shift.** Context helps too: strings sit inside quotes, functions precede `(`.
+With emerald the pair was separated only by lightness (ΔL 0.111, hue gap 11°). On a 1080p panel at 12–13 px the eye reads hue before lightness, so strings and calls blurred together in practice. Pistachio puts 43° of hue between them at equal lightness: total dE is about the same (0.106 vs 0.115), but it is now carried by the channel that small glyphs keep. Passes 0.08 normal and 0.05 CVD. Context still helps: strings sit inside quotes, functions precede `(`.
 
 ## 4. Role map
 
@@ -115,9 +117,9 @@ Collapsed roles share one palette entry. Font style is part of the role. Italic 
 | Syntax | keyword | fuchsia | |
 | Syntax | storage / modifier | orchid | |
 | Syntax | property | sky | |
-| Syntax | string | emerald | |
+| Syntax | string | pistachio | |
 | Syntax | function (method, macro, builtin call) | aqua | |
-| Syntax | constant (named const, enum member, symbol) | aqua | |
+| Syntax | constant (named const, enum member, symbol) | peach | |
 | Syntax | number (incl. boolean, null) | peach | |
 | Syntax | type (class, interface, struct, enum, generic, primitive, constructor) | yellow | |
 | Syntax | variable | fgBase | |
@@ -128,7 +130,7 @@ Collapsed roles share one palette entry. Font style is part of the role. Italic 
 | Syntax | comment, comment.doc | fgSubtle | |
 | Syntax | tag | fuchsia | |
 | Syntax | attribute (HTML attr, @annotation, @decorator, `#[attr]`) | sky | italic |
-| Syntax | regexp | emerald | (escapes/quantifiers inside take `escape` fuchsia) |
+| Syntax | regexp | pistachio | (escapes/quantifiers inside take `escape` fuchsia) |
 | Syntax | escape (`\n`, `${ }`, `#{ }`, `\( )`) | fuchsia | |
 | Syntax | invalid | red | underline + `#FF666326` bg |
 | Syntax | deprecated | fgSubtle | strikethrough (comment tier, >= 3) |
@@ -138,7 +140,7 @@ Collapsed roles share one palette entry. Font style is part of the role. Italic 
 | Markdown | title (heading) | aqua | bold |
 | Markdown | link_text / link_uri | sky / fgMuted | — / underline |
 | Markdown | emphasis / strong | fgBase | italic / bold |
-| Markdown | text.literal (inline code) | emerald | |
+| Markdown | text.literal (inline code) | pistachio | |
 | Markdown | list marker, quote | orchid / fgSubtle | |
 | Editor | selection / selection.inactive / find.* / word.highlight / line.current / bracket.match / indent guides | §1 alpha table | |
 | Editor | cursor | aqua | |
@@ -166,8 +168,8 @@ Thresholds (settled in §9.1):
 | Comment >= 3:1, target 3.5–4.5 | pass, 3.88 base / 3.43 raised / 3.23 overlay / 4.02 deep |
 | fg.muted >= 4.5:1 | pass, 5.45 base / 4.82 raised / 4.54 overlay |
 | UI pairs in both editors (04 "UI contrast gates") | pass. Text >= 4.5, indicators and the fgSubtle tier >= 3. Zed `hint` on `hint.background` (bg.raised) 3.43, accepted as comment tier |
-| Overlays keep code >= 3:1 | pass on bg.base (min 3.34 find.current) and stacked on line.current (min 3.04 find.current) |
-| Overlays keep comment >= 3:1 | pass for selection.inactive, word.highlight, line.current, bracket.match, invalid, diff.*; **fail** selection 2.73, find.match 2.87, find.current 2.38 (stacked: 2.16–3.18) |
+| Overlays keep code >= 3:1 | pass on bg.base (min 3.77 find.current) and stacked on line.current (min 3.06 find.current) |
+| Overlays keep comment >= 3:1 | pass for selection.inactive, word.highlight, line.current (3.26), bracket.match, invalid, diff.*; **fail** selection 2.73, find.match 2.87, find.current 2.68 (stacked on line.current: 2.18–2.84) |
 
 ### Hue separation (OKLab dE)
 
@@ -176,17 +178,18 @@ Syntax colors: keyword, modifier, property, string, function, type, number, inva
 | Closest pairs | normal | deutan | protan | tritan | Verdict |
 |---|---|---|---|---|---|
 | function / variable | 0.154 | **0.0495** | **0.033** | 0.159 | **fail deutan + protan** (accepted, below) |
-| string / number | 0.233 | 0.069 | 0.060 | 0.259 | pass |
+| string / number | 0.191 | 0.076 | 0.151 | — | pass |
 | keyword / modifier | 0.112 | 0.062 | 0.072 | 0.087 | pass (sibling, dC 0.102) |
 | type / number | 0.132 | 0.068 | 0.110 | 0.081 | pass |
 | invalid / punctuation | 0.214 | 0.140 | 0.072 | 0.243 | pass |
-| string / invalid | 0.327 | 0.079 | 0.204 | 0.370 | pass |
+| string / invalid | 0.319 | 0.171 | 0.297 | — | pass |
 | punctuation / comment | 0.088 | 0.090 | 0.080 | 0.091 | pass (lowest normal pair) |
 | modifier / punctuation | 0.122 | 0.086 | 0.083 | 0.098 | pass |
 | keyword / property | 0.247 | 0.084 | 0.182 | 0.263 | pass |
-| string / function | 0.115 | 0.113 | 0.119 | 0.112 | pass |
+| string / function | 0.106 | 0.095 | 0.089 | — | pass |
+| string / type | 0.095 | 0.071 | 0.096 | — | pass (second-lowest normal pair) |
 
-Normal-vision minimum over all 55 pairs: 0.088 (punctuation/comment). CVD minimum except function/variable: 0.060 (string/number, protan). Tritan minimum 0.049 (property/string), informative.
+Normal-vision minimum over all 55 pairs: 0.088 (punctuation/comment). CVD minimum except function/variable: 0.062 (keyword/modifier, deutan). Tritan figures predate §9 #11 and were not recomputed for pistachio (`src/color.ts` has no tritan matrix); informative only.
 
 UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/deleted 0.296/0.131/0.255; added/modified 0.157/0.157/0.154; conflict(orchid)/added 0.262/0.202/0.246; conflict/modified 0.185/0.118/0.173; conflict/deleted 0.179/0.162/0.154; hint/info 0.284/0.276/0.299.
 
@@ -196,8 +199,8 @@ UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/
 |---|---|
 | Tested in | `tests/palette.test.ts` "rule checks": sibling chroma, R1, R3, R9, R11, overlays stacked on line.current |
 | R1 neutral hue | pass: bgDeep 243, bgBase 244, bgRaised 244, bgOverlay 243, borderSubtle 239, borderStrong 240, fgMuted 246, fgSubtle 243, fgFaint 242 (C 0.010); fgBase C 0.001 exempt |
-| R3 accent band | pass: L 0.704 (red) – 0.884 (aqua); C 0.101 (sky) – 0.207 (fuchsia) |
-| R9 hues < 30° apart | aqua/emerald dh 11 dL 0.111 pass; peach/red dh 21 dL 0.100 pass; fuchsia/orchid dh 7 dL 0.042 sibling-exempt (dC 0.102); emerald/lime dh 24 dL 0.072 exempt (lime never in syntax; ANSI green/bright-green pair by design) |
+| R3 accent band | pass: L 0.704 (red) – 0.885 (pistachio); C 0.101 (sky) – 0.207 (fuchsia) |
+| R9 hues < 30° apart | aqua/emerald dh 11 dL 0.111 pass; peach/red dh 21 dL 0.100 pass; fuchsia/orchid dh 7 dL 0.042 sibling-exempt (dC 0.102); emerald/lime dh 24 dL 0.072 exempt (ANSI green/bright-green pair by design); yellow/pistachio dh 31, outside the rule; lime/pistachio dh 8 dL 0.040 sibling-exempt (lime is UI only: gutter, diff wash, terminal; pistachio is code text) |
 | R10 red scope | pass: red only error, invalid, git.deleted, diff deleted, ansi red |
 | R11 fg brightest | pass: fg L 0.930 > aqua 0.884 (max accent) |
 | R12 single UI accent | pass: accent, cursor, focus resolve to aqua |
@@ -208,7 +211,7 @@ UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/
 |---|---|
 | function `#4FF8D2` vs variable `#E7E8E8` under protanopia (0.033) and deuteranopia (0.0495, rounds to 0.050) | Accept. Both turso values. Fixing it through fg needs `#F5F5F5` (protan 0.051) at 17.15:1, Lc -100.7: glare, and drops turso white/90. Tinting fg (C <= 0.012, any hue, L <= 0.94) peaks at 0.046. Position cue `name(` disambiguates calls. |
 | comment under selection / find.* < 3:1 | Accept. Transient states; code stays >= 3:1. Was 1.95–2.98 with the old comment; now fails only on the three strongest fills. |
-| tritan property/string 0.049 | Accept. Not a gate (tritanopia ~0.01% prevalence); key vs value also separated by `:`/quotes. |
+| tritan property/string 0.049 (emerald era, not recomputed) | Accept. Not a gate (tritanopia ~0.01% prevalence); key vs value also separated by `:`/quotes. |
 | APCA: red -47.3, orchid -48.5, punctuation -39.3, comment -27.7 below Lc 60 | Informative only (spec gate is WCAG). Short tokens inside lines carried by fg at -92. |
 
 ## 6. Perceived value
@@ -326,10 +329,10 @@ Type-heavy check (Java, C#, Rust, Go, Kotlin, Swift): type = yellow at dE 0.190 
 | `'a` (Rust) | lifetime | orchid |
 | `self`, `this`, `it`, `super` | variable.special | orchid italic |
 | `true false null nil None undefined` | number (constant.language) | peach |
-| enum member, `UPPER_CONST`, Ruby `:symbol`, Elixir atom | constant | aqua |
+| enum member, `UPPER_CONST`, Ruby `:symbol`, Elixir atom | constant | peach |
 | interface vs class | type (same) | yellow; shape differs by name convention, not color |
 | `outer:` loop label | label | orchid |
-| regex literal `/^\d+$/` | regexp | emerald; `\d`, quantifiers → escape fuchsia |
+| regex literal `/^\d+$/` | regexp | pistachio; `\d`, quantifiers → escape fuchsia |
 | SQL keyword / function / table / column | keyword (VS Code connectives → modifier) / function / type / property | fuchsia (orchid) / aqua / yellow / sky; grammar-dependent, plain identifiers fall back to fgBase |
 | JSON/YAML/TOML key | property | sky; no per-depth colors |
 | TOML `[table]` header | type | yellow |
@@ -344,7 +347,7 @@ Type-heavy check (Java, C#, Rust, Go, Kotlin, Swift): type = yellow at dE 0.190 
 | boolean | peach | |
 | comment | fgSubtle | |
 | comment.doc | fgSubtle | |
-| constant | aqua | |
+| constant | peach | |
 | constructor | yellow | |
 | embedded | fgBase | |
 | emphasis | fgBase | italic |
@@ -364,13 +367,13 @@ Type-heavy check (Java, C#, Rust, Go, Kotlin, Swift): type = yellow at dE 0.190 
 | punctuation.delimiter | fgMuted | |
 | punctuation.list_marker | orchid | |
 | punctuation.special | fuchsia | |
-| string | emerald | |
+| string | pistachio | |
 | string.escape | fuchsia | |
-| string.regex | emerald | |
-| string.special | emerald | |
-| string.special.symbol | aqua | |
+| string.regex | pistachio | |
+| string.special | pistachio | |
+| string.special.symbol | peach | |
 | tag | fuchsia | |
-| text.literal | emerald | |
+| text.literal | pistachio | |
 | title | aqua | bold |
 | type | yellow | |
 | variable | fgBase | |
@@ -383,7 +386,7 @@ Zed capture gaps (R8 exceptions):
 - No `modifier`/`storage` capture in the fixed set: declaration keywords render fuchsia in Zed, orchid in VS Code. Zed numbers in the mix table above. Revisit if Zed adds a modifier capture.
 - `variable.parameter` applies only where the grammar emits it; elsewhere parameters fall back to `variable` (fgBase upright).
 
-VS Code maps orchid via (`storage.type`, `storage.modifier`, `keyword.other.alias.sql`, `keyword.other.order.sql`, `keyword.operator.logical.sql`, `meta.preprocessor`). Primitive types (`storage.type.primitive`, `support.type.primitive`) map to yellow upright in VS Code to match Zed's `type`. `string.regexp` maps to emerald.
+VS Code maps orchid via (`storage.type`, `storage.modifier`, `keyword.other.alias.sql`, `keyword.other.order.sql`, `keyword.operator.logical.sql`, `meta.preprocessor`). Primitive types (`storage.type.primitive`, `support.type.primitive`) map to yellow upright in VS Code to match Zed's `type`. `string.regexp` maps to pistachio.
 
 ## 9. Reconciliation with 05-dracula-lessons
 
@@ -397,7 +400,8 @@ VS Code maps orchid via (`storage.type`, `storage.modifier`, `keyword.other.alia
 | 4 | Comment | `#616569` white/35 italic | `#7B8690` upright | **`#5B758A` upright** (L 0.550 C 0.045 h243) | Before 3.18:1, Lc -21.8, raised 2.81, overlay 2.65, C 0.008. After 3.88:1, Lc -27.7, raised 3.43, overlay 3.23, h243 (R1). `#7B8690` rejected: 5.03:1 above the 4.5 cap and dE 0.020 vs punctuation `#818C96` (merges). vs punctuation: dE 0.088/0.090/0.080, dL 0.085, dC 0.025: separated by color alone, so no italic needed |
 | 5 | Italic set | params, self, attribute, comment, label, lifetime, md quote | R6: params, this/self, types (annotations, built-ins, inherited class), decorators, `markup.italic`; R7 self = fuchsia italic | italic only: parameter, variable.special, attribute/decorator, emphasis. Types upright. self/this stays **orchid** italic | Types: Zed `type` covers declaration and use, so italic annotations break R8 parity. R7's goal (no new violet) met: orchid is already in palette; orchid vs fuchsia 0.112/0.062/0.072, versus R7's rejected violet 0.025. Fuchsia `this` would add C 0.207 tokens to every Java/TS constructor |
 | 6 | Orchid band | `#B085C3` L 0.680 | R3 L >= 0.70 | `#B98CCD` L 0.706 C 0.105 | R3 pass; vs punctuation 0.122/0.086/0.083 (was 0.106/0.065/0.068) |
-| 7 | Regexp | red | R10: red only invalid/error/deleted | regexp → emerald (string family, Dracula precedent) | red now in 4 roles, all danger |
+| 7 | Regexp | red | R10: red only invalid/error/deleted | regexp → string color (emerald, pistachio since #11; Dracula precedent) | red now in 4 roles, all danger |
 | 8 | git.conflict | peach | — | orchid | peach vs lime (added) deut 0.039 < 0.05; orchid vs added/modified/deleted min CVD 0.118 |
 | 9 | bgDeep hue | `#080E12` h237 | R1 h in [238, 250] | `#080E13` h243 | dE 0.002, fg on it 15.80 |
-| 10 | Constants, decorators, md heading (R8 map) | aqua / sky italic / aqua bold | yellow / aqua italic / fuchsia bold | kept 01 | turso code block uses aqua for constants (`00-research.md`); decorators are metadata like keys (sky); heading aqua keeps markdown at 4 hues vs 3 |
+| 10 | Constants, decorators, md heading (R8 map) | aqua / sky italic / aqua bold | yellow / aqua italic / fuchsia bold | kept 01 (constants superseded by #11) | turso code block uses aqua for constants (`00-research.md`); decorators are metadata like keys (sky); heading aqua keeps markdown at 4 hues vs 3 |
+| 11 | Daily-use retune (2026-10-03) | string emerald, constant aqua, line.current `#FFFFFF08`, find.current `#E0CA3C38` | — | string → pistachio `#B9EC89`; constant → peach; line.current `#FFFFFF12`; find.current `#E0CA3C2C` | **String:** emerald/aqua hue gap 11° made strings and calls blur at 12–13 px on a 1080p panel; pistachio 0.885 0.138 131 sits 43° from aqua, R3 in band (L 0.885 ≤ 0.89), R9 vs yellow dh 31, all 55 pairs ≥ 0.088 normal and ≥ 0.062 CVD (fn/var accepted as before). The candidate the user validated on screen, `#C3F08A`, had L 0.901 (fails R3); pistachio is dE 0.017 from it, under 1 JND. A look-alike check against Catppuccin Mocha's `#A6E3A1` (CIE76 ΔE 4, near-identical) ruled out lime-adjacent `#A4DF95`. **Constant:** with tsgo (no semantic tokens) `UPPER_CONST` fell back to TextMate and rendered exactly like function calls; peach groups every fixed value (numbers, booleans, null, constants, enum members, symbols) under one warm hue, which is what the reader needs from the token. **line.current:** 0x08 (3.1%, dE 0.032 vs bg) was invisible on a non-retina panel; 0x12 (7.1%, dE 0.073) finds the cursor line without a border. Stacking find.current on the brighter line dropped punctuation to 2.73:1, so find.current goes 0x38 → 0x2C (stacked 3.06, gate kept); its border still marks the current match. Comment under line.current drops 3.63 → 3.26, still ≥ 3. Tested in `tests/palette.test.ts` "string, constant and current line retune" |
