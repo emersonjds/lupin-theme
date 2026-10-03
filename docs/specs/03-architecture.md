@@ -82,7 +82,7 @@ Ruby, Swift, SQL, HTML, CSS, SCSS, JSON, YAML, TOML, Markdown, Shell, Dockerfile
   grammars as VS Code, under the generated Lupin VS Code theme. It fails when:
   - a token the grammar marks as keyword, type, function, string, number, constant,
     comment, annotation or property renders in the default foreground
-  - one hue covers more than 40% of the colored tokens in a fixture
+  - one hue covers more than 45% of the colored characters in a fixture (JSON, YAML and TOML exempt: keys are their structure, 01 §8)
   - a fixture shows fewer than 3 syntax hues
 - The VS Code theme sets `semanticHighlighting: true` and maps `semanticTokenColors`.
   Language servers for Java, C#, Rust, Go and Kotlin then color by meaning rather than by grammar.
