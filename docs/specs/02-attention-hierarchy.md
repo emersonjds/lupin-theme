@@ -35,7 +35,7 @@ Decisions that need calling out:
 | Element | VS Code area | Zed area | Tier | bg role | fg role | border/indicator role | States |
 |---|---|---|---|---|---|---|---|
 | Editor text | `editor.background/foreground` | editor pane | T0 | bg.base | fg.base | — | n/a (syntax colors out of this spec) |
-| Line numbers, inactive | `editorLineNumber.foreground` | gutter | T0 | bg.base | fg.faint | — | default |
+| Line numbers, inactive | `editorLineNumber.foreground` | gutter | T0 | bg.base | fg.subtle | — | default; fg.faint (1.84) was unreadable |
 | Line numbers, active (cursor line) | `editorLineNumber.activeForeground` | gutter active | T0 | bg.base | accent | — | only on the line holding the cursor |
 | Current line highlight | `editor.lineHighlightBackground` | active_line | T0 | line.current | fg.base (text unaffected) | border.subtle outline (optional) | editor-focused only; drop to no fill when editor unfocused |
 | Cursor | `editorCursor.foreground` | cursor | T0 | — | — | cursor | blink default, solid while typing |
@@ -62,26 +62,26 @@ Decisions that need calling out:
 | Sidebar file tree — selected, panel focused | tree row selected (focused) | panel row selected | T2 | accent.soft | fg.base | border.strong (focus outline) | this panel has keyboard focus |
 | Sidebar file tree — selected, panel unfocused | tree row selected (unfocused) | — | T2 | bg.raised | fg.base | — | selection persists, focus moved elsewhere |
 | Git decorations in tree | filename color + badge | filename color + badge | T2 | — | git.added / git.modified / git.deleted / git.ignored / git.conflict | same roles as badge | color + letter badge (A/M/D), never color alone |
-| Activity bar icons — default | activity bar icon | activity bar icon | T2/T3 | bg.deep | fg.faint | — | default |
+| Activity bar icons — default | activity bar icon | activity bar icon | T2/T3 | bg.deep | fg.subtle | — | default, 4.02 |
 | Activity bar icons — hover | icon hover | icon hover | T2/T3 | bg.deep | fg.muted | — | pointer over |
 | Activity bar icons — active (selected view) | selected icon | selected icon | T2/T3 | bg.deep | fg.base | accent (edge bar) | counts toward the active-indicator accent rule |
 | Status bar — normal | status bar | status bar | T3 | bg.deep | fg.muted | — | default |
 | Status bar — debugging | status bar (debug) | status bar (debug) | T3 | bg.deep (unchanged) | warning | border.subtle top edge in warning | deliberate deviation from VS Code's full-bar orange recolor — keeps chrome near-black, signals via text/icon tint only |
-| Status bar — no folder open | status bar (no workspace) | status bar (no project) | T3 | bg.deep | fg.faint | — | fewer segments, everything dimmer |
+| Status bar — no folder open | status bar (no workspace) | status bar (no project) | T3 | bg.deep | fg.subtle | — | fewer segments, everything dimmer (4.02, still readable) |
 | Panel tabs (Problems/Output/Terminal) | panel tab headers | panel tab headers | T2 | same active/inactive/hover pattern as editor tabs | — | — | — |
 | Terminal | integrated terminal | terminal pane | T0 (content) | bg.base | fg.base | border.subtle (panel edge) | ANSI colors out of this spec |
-| Scrollbar — thumb | scrollbar slider | scrollbar | T2 | — | — | fg.faint (default) / fg.subtle (hover) / fg.muted (drag) | track stays bg.base/transparent |
+| Scrollbar — thumb | scrollbar slider | scrollbar | T2 | — | — | fg.subtle at 40% (default) / 60% (hover) / 70% (drag), translucent | track stays bg.base/transparent |
 | Scrollbar — overview ruler ticks | error/warning/git ticks on scrollbar | — | T1 | — | — | error / warning / git.added / git.modified / git.deleted | thin tick, same severity roles as gutter |
-| Minimap | minimap | minimap | T2 | bg.base | — | selection / find.match / find.current reused at reduced size | viewport slider box = border.subtle |
-| Inputs — default | text input | text input | T1 | bg.deep | fg.base (fg.faint placeholder) | border.subtle | default |
+| Minimap | minimap | minimap | T2 | bg.base | — | find.mark / word.mark / selection.mark (50% alpha marks, readable at minimap size) | viewport slider box = fg.subtle at 20/30/35%, translucent |
+| Inputs — default | text input | text input | T1 | bg.deep | fg.base (fg.subtle placeholder) | border.strong | default |
 | Inputs — hover | — | — | T1 | bg.deep | fg.base | border.strong | pointer over |
 | Inputs — focus | — | — | T1 | bg.deep | fg.base | accent (focus ring) | one of the ~5 accent spots |
 | Inputs — invalid | validation error | — | T1 | bg.deep | fg.base | error | validation failed |
-| Buttons — primary | primary button | primary button | T1 | accent | bg.deep (ink on accent, needs contrast check) | — | hover/press = same accent, slightly adjusted by color-scientist; disabled → bg.raised + fg.faint |
-| Buttons — secondary | secondary button | secondary button | T1 | bg.raised | fg.base | border.subtle (border.strong on hover) | focus → accent ring |
+| Buttons — primary | primary button | primary button | T1 | accent | bg.deep (ink on accent, needs contrast check) | — | hover = accent.hover (aquaBright, turso hover color), press = accent; disabled → bg.raised + fg.faint |
+| Buttons — secondary | secondary button | secondary button | T1 | bg.raised (bg.overlay on hover) | fg.base | border.subtle (border.strong on hover) | focus → accent ring |
 | Badges — generic count | badge | badge | T2 | bg.raised | fg.base | — | default |
 | Badges — severity (e.g. problem count) | badge | badge | T1 | error / warning (as bg) | bg.deep (ink) | — | severity-colored only when it represents that severity |
-| Dropdowns/autocomplete/hover widgets — container | suggest widget | completion menu | T1 | bg.raised | fg.base | border.strong | floating — border carries the separation since bg.raised is close to bg.base |
+| Dropdowns/autocomplete/hover widgets — container | suggest widget | completion menu | T1 | bg.overlay | fg.base | border.strong | floating — highest surface (VS Code `editorWidget.background`, Zed `elevated_surface.background`); border carries the separation |
 | Dropdown row — hover | item hover | item hover | T1 | — | fg.base | border.subtle outline (no fill) | pointer over, not the highlighted/selected item |
 | Dropdown row — selected/highlighted | keyboard-selected item | keyboard-selected item | T1 | accent.soft | fg.base | — | same fill pattern as tree selection |
 | Command palette — container | quick input widget | command palette | T1 | bg.overlay | fg.base | border.strong | modal-level float, above bg.raised |
@@ -108,6 +108,10 @@ Decisions that need calling out:
 3. Focus ring (inputs, buttons, any focusable control, including dropdown/tree keyboard focus outline)
 4. Primary button background
 5. Active line number
+
+Sanctioned extra uses (not counted as spots: they mark where the eye already is, never decorate chrome):
+6. Search match highlight in pickers (Zed `text.accent`/`icon.accent`: fuzzy-match characters, links)
+7. Progress bar (VS Code `progressBar.background`): transient activity indicator
 
 Forbidden: chrome backgrounds (T3), inactive tabs, badges that represent a severity (those use the severity role, not accent), the tab "modified" dot, any diagnostic/git/diff color.
 

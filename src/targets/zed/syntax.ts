@@ -1,0 +1,56 @@
+import { roles, type Style } from '../../roles';
+
+const { syntax, fg, status } = roles;
+
+// ponytail: underline has no Zed syntax equivalent, dropped
+const toCapture = ({ color, fontStyle }: Style) => ({
+  color,
+  ...(fontStyle === 'italic' && { font_style: 'italic' as const }),
+  ...(fontStyle === 'bold' && { font_weight: 700 as const }),
+});
+
+export const captures = {
+  attribute: toCapture(syntax.attribute),
+  boolean: toCapture(syntax.number),
+  comment: toCapture(syntax.comment),
+  'comment.doc': toCapture(syntax.comment),
+  constant: toCapture(syntax.constant),
+  constructor: toCapture(syntax.type),
+  embedded: toCapture({ color: fg.base }),
+  emphasis: toCapture(syntax.emphasis),
+  'emphasis.strong': toCapture(syntax.strong),
+  enum: toCapture(syntax.type),
+  function: toCapture(syntax.function),
+  hint: toCapture({ color: status.hint }),
+  keyword: toCapture(syntax.keyword),
+  label: toCapture(syntax.label),
+  link_text: toCapture(syntax.linkText),
+  link_uri: toCapture(syntax.linkUri),
+  number: toCapture(syntax.number),
+  operator: toCapture(syntax.operator),
+  predictive: toCapture({ color: fg.subtle }),
+  preproc: toCapture(syntax.preproc),
+  primary: toCapture({ color: fg.base }),
+  property: toCapture(syntax.property),
+  punctuation: toCapture(syntax.punctuation),
+  'punctuation.bracket': toCapture(syntax.punctuation),
+  'punctuation.delimiter': toCapture(syntax.punctuation),
+  'punctuation.list_marker': toCapture(syntax.listMarker),
+  'punctuation.special': toCapture(syntax.escape),
+  string: toCapture(syntax.string),
+  'string.escape': toCapture(syntax.escape),
+  'string.regex': toCapture(syntax.regexp),
+  'string.special': toCapture(syntax.string),
+  'string.special.symbol': toCapture(syntax.constant),
+  tag: toCapture(syntax.tag),
+  'text.literal': toCapture(syntax.literal),
+  title: toCapture(syntax.title),
+  type: toCapture(syntax.type),
+  'type.interface': toCapture(syntax.type),
+  'type.super': toCapture(syntax.type),
+  variable: toCapture(syntax.variable),
+  'variable.member': toCapture(syntax.property),
+  'variable.parameter': toCapture(syntax.parameter),
+  'variable.special': toCapture(syntax.variableSpecial),
+  variant: toCapture(syntax.constant),
+};

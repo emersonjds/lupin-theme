@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turso Users &amp; Quotas</title>
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        .user-card { border: 1px solid #ccc; padding: 8px; }
+    </style>
+</head>
+<body data-theme="lupin" class="dashboard">
+    <!-- top navigation -->
+    <header id="main-header">
+        <h1>Users &amp; Quotas</h1>
+    </header>
+    <main>
+        <section class="user-card" data-user-id="u_1">
+            <p>Email: <strong>a@b.io</strong></p>
+        </section>
+    </main>
+    <script>
+        const quota = 100;
+        console.log(`loaded ${quota} users\n`);
+        document.querySelector(".user-card").addEventListener("click", () => {
+            console.log("clicked");
+        });
+    </script>
+</body>
+</html>
