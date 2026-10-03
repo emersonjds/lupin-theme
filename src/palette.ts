@@ -20,6 +20,7 @@ export const palette = {
   peach: '#FDA77F',
   red: '#FF6663',
   lime: '#A4DF95',
+  pistachio: '#B9EC89',
   // terminal-only
   blue: '#42A3FD',
   redBright: '#FE9892',

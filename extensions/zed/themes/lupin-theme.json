@@ -233,16 +233,16 @@
             "color": "#E879F9"
           },
           "string": {
-            "color": "#34D399"
+            "color": "#B9EC89"
           },
           "string.escape": {
             "color": "#E879F9"
           },
           "string.regex": {
-            "color": "#34D399"
+            "color": "#B9EC89"
           },
           "string.special": {
-            "color": "#34D399"
+            "color": "#B9EC89"
           },
           "string.special.symbol": {
             "color": "#4FF8D2"
@@ -251,7 +251,7 @@
             "color": "#E879F9"
           },
           "text.literal": {
-            "color": "#34D399"
+            "color": "#B9EC89"
           },
           "title": {
             "color": "#4FF8D2",
