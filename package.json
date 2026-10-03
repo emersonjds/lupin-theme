@@ -1,0 +1,22 @@
+{
+  "name": "lupin-theme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "preview": "tsx scripts/preview.ts",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "package": "npm run build && cd extensions/vscode && vsce package --no-dependencies --out ../../lupin-theme.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "@vitest/coverage-v8": "^5.0.3",
+    "eslint": "^10.12.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.3"
+  }
+}
