@@ -1,0 +1,7 @@
+id = "lupin-theme"
+name = "Lupin Theme"
+version = "0.1.0"
+schema_version = 1
+authors = ["Emerson Silva <emerson_jdss@hotmail.com>"]
+description = "A calm dark theme inspired by the turso.tech code blocks."
+repository = "https://github.com/emersonjds/lupin-theme"
