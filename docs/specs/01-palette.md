@@ -97,7 +97,7 @@ Derived (non-turso) values changed in reconciliation: bgDeep `#080E12` → `#080
 | OKLCH | 0.885 0.138 131 vs 0.884 0.148 174 |
 | Hue gap | 43° (was 11° with emerald) |
 | OKLab dE | 0.106 |
-| dE deuteranopia / protanopia | 0.095 / 0.089 |
+| dE deuteranopia / protanopia / tritanopia | 0.095 / 0.089 / 0.110 |
 
 With emerald the pair was separated only by lightness (ΔL 0.111, hue gap 11°). On a 1080p panel at 12–13 px the eye reads hue before lightness, so strings and calls blurred together in practice. Pistachio puts 43° of hue between them at equal lightness: total dE is about the same (0.106 vs 0.115), but it is now carried by the channel that small glyphs keep. Passes 0.08 normal and 0.05 CVD. Context still helps: strings sit inside quotes, functions precede `(`.
 
@@ -178,18 +178,18 @@ Syntax colors: keyword, modifier, property, string, function, type, number, inva
 | Closest pairs | normal | deutan | protan | tritan | Verdict |
 |---|---|---|---|---|---|
 | function / variable | 0.154 | **0.0495** | **0.033** | 0.159 | **fail deutan + protan** (accepted, below) |
-| string / number | 0.191 | 0.076 | 0.151 | — | pass |
+| string / number | 0.191 | 0.076 | 0.151 | 0.195 | pass |
 | keyword / modifier | 0.112 | 0.062 | 0.072 | 0.087 | pass (sibling, dC 0.102) |
 | type / number | 0.132 | 0.068 | 0.110 | 0.081 | pass |
 | invalid / punctuation | 0.214 | 0.140 | 0.072 | 0.243 | pass |
-| string / invalid | 0.319 | 0.171 | 0.297 | — | pass |
+| string / invalid | 0.319 | 0.171 | 0.297 | 0.339 | pass |
 | punctuation / comment | 0.088 | 0.090 | 0.080 | 0.091 | pass (lowest normal pair) |
 | modifier / punctuation | 0.122 | 0.086 | 0.083 | 0.098 | pass |
 | keyword / property | 0.247 | 0.084 | 0.182 | 0.263 | pass |
-| string / function | 0.106 | 0.095 | 0.089 | — | pass |
-| string / type | 0.095 | 0.071 | 0.096 | — | pass (second-lowest normal pair) |
+| string / function | 0.106 | 0.095 | 0.089 | 0.110 | pass |
+| string / type | 0.095 | 0.071 | 0.096 | 0.116 | pass (second-lowest normal pair) |
 
-Normal-vision minimum over all 55 pairs: 0.088 (punctuation/comment). CVD minimum except function/variable: 0.062 (keyword/modifier, deutan). Tritan figures predate §9 #11 and were not recomputed for pistachio (`src/color.ts` has no tritan matrix); informative only.
+Normal-vision minimum over all 55 pairs: 0.088 (punctuation/comment). CVD minimum except function/variable: 0.062 (keyword/modifier, deutan). Tritan minimum 0.061 (keyword/number), then 0.064 (string/variable); property/string rose from 0.049 to 0.112 with pistachio. Informative only; computed by `deltaE(..., 'tritanopia')` in `src/color.ts`.
 
 UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/deleted 0.296/0.131/0.255; added/modified 0.157/0.157/0.154; conflict(orchid)/added 0.262/0.202/0.246; conflict/modified 0.185/0.118/0.173; conflict/deleted 0.179/0.162/0.154; hint/info 0.284/0.276/0.299.
 
@@ -211,7 +211,7 @@ UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/
 |---|---|
 | function `#4FF8D2` vs variable `#E7E8E8` under protanopia (0.033) and deuteranopia (0.0495, rounds to 0.050) | Accept. Both turso values. Fixing it through fg needs `#F5F5F5` (protan 0.051) at 17.15:1, Lc -100.7: glare, and drops turso white/90. Tinting fg (C <= 0.012, any hue, L <= 0.94) peaks at 0.046. Position cue `name(` disambiguates calls. |
 | comment under selection / find.* < 3:1 | Accept. Transient states; code stays >= 3:1. Was 1.95–2.98 with the old comment; now fails only on the three strongest fills. |
-| tritan property/string 0.049 (emerald era, not recomputed) | Accept. Not a gate (tritanopia ~0.01% prevalence); key vs value also separated by `:`/quotes. |
+| tritan minimum 0.061 (keyword/number) | Accept. Not a gate (tritanopia ~0.01% prevalence). The old property/string 0.049 is gone: 0.112 since §9 #11. |
 | APCA: red -47.3, orchid -48.5, punctuation -39.3, comment -27.7 below Lc 60 | Informative only (spec gate is WCAG). Short tokens inside lines carried by fg at -92. |
 
 ## 6. Perceived value
