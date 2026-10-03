@@ -48,7 +48,7 @@ export const roles = {
     property: { color: palette.sky },
     string: { color: palette.pistachio },
     function: { color: palette.aqua },
-    constant: { color: palette.aqua },
+    constant: { color: palette.peach },
     number: { color: palette.peach },
     type: { color: palette.yellow },
     variable: { color: palette.fgBase },
