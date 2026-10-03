@@ -373,7 +373,7 @@
         "constant.other.key"
       ],
       "settings": {
-        "foreground": "#4FF8D2"
+        "foreground": "#FDA77F"
       }
     },
     {
@@ -404,7 +404,7 @@
         "variable.other.enummember"
       ],
       "settings": {
-        "foreground": "#4FF8D2"
+        "foreground": "#FDA77F"
       }
     },
     {
@@ -1310,7 +1310,7 @@
         "constant.other.symbol.hashkey.ruby"
       ],
       "settings": {
-        "foreground": "#4FF8D2"
+        "foreground": "#FDA77F"
       }
     },
     {
@@ -1452,7 +1452,7 @@
       "foreground": "#E0CA3C"
     },
     "enumMember": {
-      "foreground": "#4FF8D2"
+      "foreground": "#FDA77F"
     },
     "interface": {
       "foreground": "#E0CA3C"

@@ -92,4 +92,6 @@ describe('string, constant and current line retune (01 §9 #11)', () => {
 
   it('regexp and inline code follow string', () =>
     expect([syntax.regexp.color, syntax.literal.color]).toEqual([syntax.string.color, syntax.string.color]));
+
+  it('constant shares the number color', () => expect(syntax.constant.color).toBe(syntax.number.color));
 });
