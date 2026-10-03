@@ -760,20 +760,25 @@ Selection and find fills are not `ThemeStyleContent` keys — Zed derives `selec
 | Key | Role |
 |---|---|
 | `search.match_background` | find.match |
-| `conflict`/`conflict.background`/`conflict.border` | git.conflict |
-| `created`/`created.background`/`created.border` | git.added |
-| `deleted`/`deleted.background`/`deleted.border` | git.deleted |
-| `modified`/`modified.background`/`modified.border` | git.modified |
-| `ignored`/`ignored.background`/`ignored.border` | git.ignored |
-| `renamed`/`renamed.background`/`renamed.border` | git.modified (no dedicated role, reuse — matches VS Code gap above) |
-| `error`/`error.background`/`error.border` | error |
-| `warning`/`warning.background`/`warning.border` | warning |
-| `info`/`info.background`/`info.border` | info |
-| `hint`/`hint.background`/`hint.border` | hint |
-| `success`/`success.background`/`success.border` | success |
-| `hidden`/`hidden.background`/`hidden.border` | fg.faint |
-| `unreachable`/`unreachable.background`/`unreachable.border` | fg.subtle |
-| `predictive`/`predictive.background`/`predictive.border` | fg.subtle |
+
+Status/git families: `<status>` and `<status>.border` take the solid role; `<status>.background` takes a translucent wash, because Zed paints `.background` as a fill (diff hunks, inlay hints, diagnostic blocks) and a solid role color would flood the text.
+
+| Key | `<status>` / `.border` | `.background` |
+|---|---|---|
+| `conflict` | git.conflict | editor.conflictBackground (orchidSoft) |
+| `created` | git.added | editor.diffAdded (limeFaint) |
+| `deleted` | git.deleted | editor.diffDeleted (redFaint) |
+| `modified` | git.modified | editor.wordHighlight (skyFaint) |
+| `ignored` | git.ignored | bg.raised (no gray wash role) |
+| `renamed` | git.modified (no dedicated role, reuse — matches VS Code gap above) | editor.wordHighlight (skyFaint) |
+| `error` | error | editor.invalidBackground (redSoft) |
+| `warning` | warning | editor.findMatch (yellowSoft) |
+| `info` | info | editor.wordHighlight (skyFaint) |
+| `hint` | hint | bg.raised (no gray wash role) |
+| `success` | success | editor.diffAdded (limeFaint) |
+| `hidden` | fg.faint | bg.raised (no gray wash role) |
+| `unreachable` | fg.subtle | bg.raised (no gray wash role) |
+| `predictive` | fg.subtle | bg.raised (no gray wash role) |
 
 ### Terminal + 16 ANSI
 

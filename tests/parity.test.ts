@@ -4,8 +4,18 @@ import { zedTheme } from '../src/targets/zed';
 
 const captures = zedTheme.themes[0].style.syntax;
 
-const scopeColor = (scope: string) =>
-  vscodeTheme.tokenColors.findLast((rule) => rule.scope.includes(scope))?.settings.foreground;
+const scopeRule = (scope: string) => vscodeTheme.tokenColors.findLast((rule) => rule.scope.includes(scope));
+
+// 'underline' has no Zed syntax equivalent.
+const scopeStyle = (scope: string) => {
+  const fontStyle = scopeRule(scope)?.settings.fontStyle;
+  return fontStyle === 'underline' ? undefined : fontStyle;
+};
+
+const captureStyle = (capture: keyof typeof captures) => {
+  const { font_style, font_weight }: { font_style?: 'italic'; font_weight?: number } = captures[capture];
+  return font_style ?? (font_weight === 700 ? 'bold' : undefined);
+};
 
 // [VS Code scope, Zed capture] for every syntax row of 04 §6; gaps skipped: modifier, invalid, namespace, lifetime.
 const pairs = [
@@ -31,5 +41,7 @@ const pairs = [
   ['meta.preprocessor', 'preproc'],
 ] as const;
 
-it.each(pairs)('VS Code %s and Zed %s share one color', (scope, capture) =>
-  expect(scopeColor(scope)).toBe(captures[capture].color));
+it.each(pairs)('VS Code %s and Zed %s share one color and style', (scope, capture) => {
+  expect(scopeRule(scope)?.settings.foreground).toBe(captures[capture].color);
+  expect(scopeStyle(scope)).toBe(captureStyle(capture));
+});
