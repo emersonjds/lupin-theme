@@ -1,0 +1,32 @@
+# Config for the turso-users-service
+
+name = "turso-users-service"
+version = "1.2.0"
+active = true
+released_at = 2024-03-15T10:00:00Z
+
+[database]
+url = "libsql://db.turso.io"
+quota = 100
+ratio = 10.4
+hex = 0x1A
+
+[database.pool]
+min = 1
+max = 10
+
+[[users]]
+id = "u_1"
+email = "a@b.io"
+quota = 100
+
+[[users]]
+id = "u_2"
+email = "b@b.io"
+quota = 0
+
+tags = ["turso", "sqlite", "edge"]
+
+[env.production]
+quota = 500
+replicas = 5
