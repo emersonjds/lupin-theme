@@ -223,7 +223,7 @@ Per-depth guide variants (`editorIndentGuide.(active)Background1-6`, `editorBrac
 | `statusBar.debuggingForeground` | warning | |
 | `statusBar.debuggingBorder` | warning | top edge, signals via hue not a full recolor |
 | `statusBar.noFolderBackground` | bg.deep | |
-| `statusBar.noFolderForeground` | fg.subtle | 4.02 on bg.deep; dimmed on purpose (02 T3), secondary tier >= 3 |
+| `statusBar.noFolderForeground` | fg.muted | 5.66 on bg.deep; status text keeps the 4.5 text gate |
 | `statusBar.noFolderBorder` | border.subtle | |
 | `statusBarItem.hoverBackground` | bg.base | |
 | `statusBarItem.activeBackground` | bg.raised | pressed |
