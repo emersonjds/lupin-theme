@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { composite, contrast, deltaE, type Hex } from '../src/color';
+import { composite, contrast, deltaE, oklab, type Hex } from '../src/color';
+import { palette } from '../src/palette';
 import { roles } from '../src/roles';
 
 const { syntax, bg, fg, editor } = roles;
@@ -26,6 +27,12 @@ describe('contrast gates (01 §5)', () => {
     const failing = codeTokens.filter(([, style]) => contrast(style.color, surface) < 3).map(([name]) => name);
     expect(failing).toEqual([]);
   });
+
+  it.each(overlays.filter((overlay) => overlay !== editor.lineCurrent))('overlay %s stacked on line.current keeps every code token at least 3:1', (overlay) => {
+    const surface = composite(overlay, composite(editor.lineCurrent, bg.base));
+    const failing = codeTokens.filter(([, style]) => contrast(style.color, surface) < 3).map(([name]) => name);
+    expect(failing).toEqual([]);
+  });
 });
 
 describe('hue separation gates (01 §5)', () => {
@@ -41,5 +48,38 @@ describe('hue separation gates (01 §5)', () => {
       (vision) => !accepted.has(`${first}/${second}/${vision}`) && deltaE(syntax[first].color, syntax[second].color, vision) < 0.05,
     );
     expect(failing).toEqual([]);
+  });
+});
+
+const lch = (hex: Hex) => {
+  const [lightness, a, b] = oklab(hex);
+  return { lightness, chroma: Math.hypot(a, b), hue: ((Math.atan2(b, a) * 180) / Math.PI + 360) % 360 };
+};
+
+describe('rule checks (01 §5)', () => {
+  const accents = (['keyword', 'modifier', 'property', 'string', 'function', 'number', 'type', 'invalid'] as const).map((name) => [name, syntax[name].color] as const);
+  const chromatic = (['aqua', 'fuchsia', 'orchid', 'sky', 'emerald', 'yellow', 'peach', 'red', 'lime'] as const).map((name) => [name, palette[name]] as const);
+  const neutrals = Object.entries({ ...palette }).filter(([name]) => /^(bg|border)[A-Z][a-z]+$|^fg(Muted|Subtle|Faint)$/.test(name));
+  const siblings = new Set(['fuchsia/orchid', 'emerald/lime']);
+  const closeHues = chromatic
+    .flatMap(([first, firstHex], index) => chromatic.slice(index + 1).map(([second, secondHex]) => [`${first}/${second}`, firstHex, secondHex] as const))
+    .filter(([pair, first, second]) => !siblings.has(pair) && 180 - Math.abs(Math.abs(lch(first).hue - lch(second).hue) - 180) < 30);
+
+  it('keyword and modifier siblings differ in chroma by at least 0.10', () =>
+    expect(Math.abs(lch(syntax.keyword.color).chroma - lch(syntax.modifier.color).chroma)).toBeGreaterThanOrEqual(0.1));
+
+  it.each(accents)('R3: %s has L in [0.70, 0.89] and C in [0.10, 0.21]', (_, hex) => {
+    const { lightness, chroma } = lch(hex);
+    expect([lightness >= 0.7, lightness <= 0.89, chroma >= 0.1, chroma <= 0.21]).toEqual([true, true, true, true]);
+  });
+
+  it.each(closeHues)('R9: %s, closer than 30° in hue, differ in L by at least 0.10', (_, first, second) =>
+    expect(Math.abs(lch(first).lightness - lch(second).lightness)).toBeGreaterThanOrEqual(0.1));
+
+  it.each(chromatic)('R11: %s is darker than fg.base', (_, hex) => expect(lch(hex).lightness).toBeLessThan(lch(fg.base).lightness));
+
+  it.each(neutrals)('R1: neutral %s keeps its hue in [238, 250] when chromatic', (_, hex) => {
+    const { chroma, hue } = lch(hex);
+    if (chroma > 0.01) expect([hue >= 238, hue <= 250]).toEqual([true, true]);
   });
 });
