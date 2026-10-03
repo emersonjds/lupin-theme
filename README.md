@@ -6,9 +6,10 @@ Dark theme for VS Code and Zed, inspired by the code blocks on [turso.tech](http
 
 ## Why Lupin
 
-- Colors lifted straight from turso.tech's own code blocks, not a guess at their brand.
+- Colors start from turso.tech's own code blocks, then are tuned for all-day reading: every change is measured, not eyeballed.
 - Calm near-black blue background (`#0D1318`), not pure black — less glare, more room to layer panels and popups.
 - One saturated accent (aqua `#4FF8D2`) for cursor, functions and focus; everything else stays low-chroma so the accent actually means something.
+- Strings, calls and fixed values read apart by hue, not only by brightness, so they stay distinct at small font sizes on 1080p panels.
 - Tuned and tested across 23 languages, not just the two or three a theme author happens to write in.
 - Every contrast and hue decision is a computed number, checked for deuteranopia and protanopia, not an eyeball call.
 
@@ -79,7 +80,7 @@ Zed `settings.json`:
 
 ## Palette
 
-19 core colors. Full numbers (OKLCH, WCAG, APCA) and the gates behind each choice: `docs/specs/01-palette.md`.
+20 core colors. Full numbers (OKLCH, WCAG, APCA) and the gates behind each choice: `docs/specs/01-palette.md`. The swatch image below predates the string/constant retune (spec §9 #11); the table is current.
 
 ![Lupin Theme 19-color palette swatches](docs/images/palette.png)
 
@@ -95,13 +96,14 @@ Zed `settings.json`:
 | fgMuted | `#818C96` | fg.muted, punctuation, operator, link uri |
 | fgSubtle | `#5B758A` | fg.subtle, comment, hint, md quote |
 | fgFaint | `#3D4246` | fg.faint, inactive line numbers |
-| aqua | `#4FF8D2` | accent, cursor, function, method, constant, md heading |
+| aqua | `#4FF8D2` | accent, cursor, function, method, md heading |
 | fuchsia | `#E879F9` | keyword (control, import, return), tag, escape |
 | orchid | `#B98CCD` | storage/modifier, self/this, lifetime, label, preproc |
 | sky | `#7DD3FC` | property, attribute/decorator, object key, md link text |
-| emerald | `#34D399` | string, regexp, md inline code |
+| pistachio | `#B9EC89` | string, regexp, md inline code |
+| emerald | `#34D399` | terminal green |
 | yellow | `#E0CA3C` | type, class, interface, generic, warning |
-| peach | `#FDA77F` | number, boolean, null/nil |
+| peach | `#FDA77F` | number, boolean, null/nil, constant, enum member, symbol |
 | red | `#FF6663` | error, invalid, git deleted |
 | lime | `#A4DF95` | success, git added |
 
@@ -114,9 +116,24 @@ Zed `settings.json`:
 **Syntax decisions:**
 - Keyword (`if`, `return`, `import`, fuchsia) vs. modifier (`public`, `static`, `final`, orchid) — same hue family, modifier at ~half the chroma, so a Java signature doesn't turn into a wall of one color.
 - Types (class, interface, generic) get their own hue, yellow — distinct from properties, so type-heavy code (Java, Rust, Go) still reads its shape.
-- Numbers, booleans and null share peach — literal values, warm like strings but not text.
+- Strings are pistachio, 43° of hue away from aqua function calls. The old turso emerald sat only 11° away and relied on brightness alone, which small glyphs lose.
+- Numbers, booleans, null, named constants (`UPPER_CASE`), enum members and symbols share peach: everything that cannot change at runtime reads as one warm "fixed value" family.
 - Comments are tinted on the background hue, not neutral gray, and held to >= 3.88:1 — readable, still clearly receded.
 - Italic is reserved for exactly four roles: parameter, `self`/`this`, attribute/decorator, markdown emphasis. Nothing else gets a second channel.
+
+## Color science: why these colors are easy on the eyes
+
+The theme is meant for eight-hour sessions, so the goal is less effort per glance, not maximum punch. Each point below is a measured number in `docs/specs/01-palette.md`.
+
+- **Dark blue background, not pure black.** `#0D1318` (OKLCH L 0.18, on hue 244). Bright text on pure `#000` produces halation, a glow that bleeds around letters and is worst for people with astigmatism. A slightly lifted, tinted background reduces it and leaves room for raised panels and popups.
+- **Off-white text, not pure white.** `#E7E8E8` gives 15.2:1 contrast: far above the WCAG 7:1 AAA line, without the glare of 21:1 white on black.
+- **Mid-chroma accents only.** Every syntax color sits in a fixed band: OKLCH lightness 0.70 to 0.89 and chroma 0.10 to 0.21. Very saturated colors on dark backgrounds appear to vibrate and tire the eye. The band keeps every token readable (≥ 4.5:1) without any color shouting over the code.
+- **Separated in a perceptual color space.** Distances are measured in OKLab (Ottosson, 2020), where equal numbers mean roughly equal visible differences. Every pair of syntax colors is at least ΔE 0.088 apart, about 4 just-noticeable differences.
+- **Hue before lightness for small text.** At 12 to 14 px the eye separates letters by hue much better than by small brightness steps. Strings (pistachio, hue 131°) and calls (aqua, 174°) differ by 43° of hue, so they separate at a glance.
+- **Color-vision deficiency checked.** Every pair is simulated for deuteranopia and protanopia (Machado, Oliveira and Fernandes, 2009) and kept at least ΔE 0.05 apart, with one documented exception below.
+- **Visible current line, without a border.** The cursor line gets a 7% white wash (ΔE 0.073 from the background), easy to find on non-retina panels. Every code token stays at least 3:1 even under a search match stacked on the current line.
+- **Comments recede by design.** Blue-steel `#5B758A` at 3.88:1: readable when you look for them, quiet when you don't.
+- **One accent.** Aqua marks only what acts or where you are (cursor, function calls, focus). When few things are bright, the bright things mean something.
 
 ## Accessibility
 
@@ -124,8 +141,8 @@ Zed `settings.json`:
 - Every syntax pair checked in OKLab ΔE, including simulated deuteranopia and protanopia (Machado 2009), not just normal vision.
 - Known accepted exceptions:
   - `function` (aqua) vs. `variable` (fgBase) falls under the deuteranopia/protanopia threshold — fixing it would mean glare-level fg or dropping turso's own aqua; position (`name(`) disambiguates.
-  - Comment contrast drops below 3:1 only under the three strongest selection/find fills — code itself stays >= 3:1 throughout.
-  - Tritanopia separation on property/string is below target — tritanopia is ~0.01% prevalence and informative-only here; `:`/quotes separate key from value regardless.
+  - Comment contrast drops below 3:1 under the three strongest selection/find fills, and under most fills stacked on the current line — code itself stays >= 3:1 throughout.
+  - Tritanopia is informative only (~0.01% prevalence) and was not recomputed for the pistachio string; `:`/quotes separate key from value regardless.
 
 ## Languages tested
 
