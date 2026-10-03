@@ -39,6 +39,7 @@ const pairs = [
   ['constant.character.escape', 'string.escape'],
   ['entity.name.label', 'label'],
   ['meta.preprocessor', 'preproc'],
+  ['markup.heading', 'title'],
 ] as const;
 
 it.each(pairs)('VS Code %s and Zed %s share one color and style', (scope, capture) => {
