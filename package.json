@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsx scripts/build.ts",
     "preview": "tsx scripts/preview.ts",
+    "images": "tsx scripts/images.ts",
     "test": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
