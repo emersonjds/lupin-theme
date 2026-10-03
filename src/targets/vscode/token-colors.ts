@@ -38,9 +38,12 @@ export const tokenColors: TokenColor[] = [
   rule('Type parameter', ['entity.name.type.type-parameter', 'meta.indexer.mappedtype.declaration'], syntax.property),
   rule('Function', ['entity.name.function', 'meta.function-call.object', 'support.function'], syntax.function),
   rule('Decorator', ['meta.decorator variable.other.readwrite', 'meta.decorator variable.other.object'], syntax.attribute),
+  rule('Namespace', ['entity.name.namespace'], syntax.namespace),
   rule('Tag', ['entity.name.tag'], syntax.tag),
   rule('Attribute', ['entity.other.attribute-name'], syntax.attribute),
   rule('Punctuation', ['punctuation', 'punctuation.definition', 'punctuation.separator', 'punctuation.terminator'], syntax.punctuation),
+  rule('String quotes', ['punctuation.definition.string'], syntax.string),
+  rule('Interpolation punctuation', ['punctuation.definition.template-expression', 'punctuation.section.embedded'], syntax.escape),
   rule('Keyword punctuation', ['punctuation.definition.keyword'], syntax.keyword),
   rule('Regexp', ['string.regexp'], syntax.regexp),
   rule('Regexp punctuation', ['punctuation.definition.string.begin.regexp', 'punctuation.definition.group.regexp', 'punctuation.definition.character-class.regexp'], syntax.regexp),
@@ -65,7 +68,6 @@ export const tokenColors: TokenColor[] = [
   rule('HTML tag', ['entity.name.tag', 'punctuation.definition.tag'], syntax.tag),
   rule('HTML attribute', ['entity.other.attribute-name.html', 'entity.other.attribute-name.jsx'], syntax.attribute),
   rule('JSX component', ['support.class.component'], syntax.type),
-  rule('Embedded punctuation', ['punctuation.section.embedded'], syntax.punctuation),
   rule('Attribute value', ['meta.tag string.quoted'], syntax.string),
 
   // CSS / SCSS
@@ -153,9 +155,8 @@ export const tokenColors: TokenColor[] = [
   rule('SQL type', ['support.type.sql'], syntax.type),
   rule('SQL column', ['variable.parameter.sql'], { color: fg.base }),
 
-  // Diff / deprecated
+  // Diff
   rule('Diff inserted', ['markup.inserted.diff'], { color: git.added }),
   rule('Diff deleted', ['markup.deleted.diff'], { color: git.deleted }),
   rule('Diff header', ['meta.diff.header'], { color: fg.muted }),
-  rule('Deprecated', ['invalid.deprecated'], deprecated),
 ];
