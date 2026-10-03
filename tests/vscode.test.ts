@@ -43,6 +43,7 @@ describe('vscode token colors', () => {
     ['punctuation.definition.template-expression', roles.syntax.escape],
     ['punctuation.section.embedded', roles.syntax.escape],
     ['entity.name.namespace', roles.syntax.namespace],
+    ['keyword.other.declaration-specifier.swift', roles.syntax.modifier],
   ])('colors %s with its role', (scope, style) => {
     const owners = tokenColors.filter((rule) => rule.scope.includes(scope));
     expect(owners.map((rule) => rule.settings.foreground)).toEqual([style.color]);
@@ -61,4 +62,7 @@ describe('vscode semantic tokens', () => {
   it('enables semantic highlighting', () => expect(vscodeTheme.semanticHighlighting).toBe(true));
   it.each(['class', 'interface', 'enumMember', 'parameter', 'property', 'function', 'method', 'macro', 'namespace', 'decorator'])(
     'colors %s', (selector) => expect(semanticTokenColors).toHaveProperty([selector]));
+
+  it('keeps readonly variables in the variable color, like Zed', () =>
+    expect(semanticTokenColors['variable.readonly']).toEqual({ foreground: roles.syntax.variable.color }));
 });
