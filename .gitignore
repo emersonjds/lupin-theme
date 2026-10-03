@@ -2,3 +2,5 @@ node_modules/
 coverage/
 *.vsix
 .DS_Store
+.superpowers/
+preview/
