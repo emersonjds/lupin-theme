@@ -166,7 +166,7 @@ Syntax colors: keyword, modifier, property, string, function, type, number, inva
 
 | Closest pairs | normal | deutan | protan | tritan | Verdict |
 |---|---|---|---|---|---|
-| function / variable | 0.154 | 0.050 | **0.033** | 0.159 | **fail protan** (accepted, below) |
+| function / variable | 0.154 | **0.0495** | **0.033** | 0.159 | **fail deutan + protan** (accepted, below) |
 | string / number | 0.233 | 0.069 | 0.060 | 0.259 | pass |
 | keyword / modifier | 0.112 | 0.062 | 0.072 | 0.087 | pass (sibling, dC 0.102) |
 | type / number | 0.132 | 0.068 | 0.110 | 0.081 | pass |
@@ -196,7 +196,7 @@ UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/
 
 | Failure | Decision |
 |---|---|
-| function `#4FF8D2` vs variable `#E7E8E8` under protanopia (0.033) | Accept. Both turso values. Fixing it through fg needs `#F5F5F5` (protan 0.051) at 17.15:1, Lc -100.7: glare, and drops turso white/90. Tinting fg (C <= 0.012, any hue, L <= 0.94) peaks at 0.046. Position cue `name(` disambiguates calls. |
+| function `#4FF8D2` vs variable `#E7E8E8` under protanopia (0.033) and deuteranopia (0.0495, rounds to 0.050) | Accept. Both turso values. Fixing it through fg needs `#F5F5F5` (protan 0.051) at 17.15:1, Lc -100.7: glare, and drops turso white/90. Tinting fg (C <= 0.012, any hue, L <= 0.94) peaks at 0.046. Position cue `name(` disambiguates calls. |
 | comment under selection / find.* < 3:1 | Accept. Transient states; code stays >= 3:1. Was 1.95–2.98 with the old comment; now fails only on the three strongest fills. |
 | tritan property/string 0.049 | Accept. Not a gate (tritanopia ~0.01% prevalence); key vs value also separated by `:`/quotes. |
 | APCA: red -47.3, orchid -48.5, punctuation -39.3, comment -27.7 below Lc 60 | Informative only (spec gate is WCAG). Short tokens inside lines carried by fg at -92. |
