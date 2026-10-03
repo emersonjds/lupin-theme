@@ -47,6 +47,7 @@ of `roles`, so they are tested without touching the disk.
 | TypeScript (strict) | typed role names catch a typo before it reaches a JSON key |
 | tsx | runs `scripts/build.ts` without a compile step |
 | vitest + @vitest/coverage-v8 | test runner with coverage thresholds at 90% |
+| shiki | tokenizes per-language fixtures with VS Code grammars for tests and preview |
 | ajv | validates Zed output against the official schema, because Zed ignores invalid keys without warning |
 | eslint + typescript-eslint | lint, zero errors |
 | @vscode/vsce | packages the `.vsix` |
@@ -66,6 +67,32 @@ with no color library.
 | `build.test.ts` | the committed files in `extensions/*/themes/` differ from fresh build output |
 | `hex-only-in-palette.test.ts` | a hex literal appears in `src/` outside `palette.ts` |
 
+## Cross-language quality
+
+The theme must read as well in Java, Rust or SQL as in TypeScript. A theme tuned on one
+language usually falls apart on keyword-dense (Java, C#) or type-dense (Rust, Go) code.
+
+Languages under test: TypeScript, JavaScript, Java, Kotlin, C#, Python, Go, Rust, C, C++, PHP,
+Ruby, Swift, SQL, HTML, CSS, SCSS, JSON, YAML, TOML, Markdown, Shell, Dockerfile.
+
+- `tests/fixtures/<lang>.<ext>` holds one realistic snippet per language: imports, a class
+  or type, a function, generics, annotation or decorator, string with escape and
+  interpolation, number, boolean/null, comment, doc comment.
+- `languages.test.ts` tokenizes each fixture with Shiki, which uses the same TextMate
+  grammars as VS Code, under the generated Lupin VS Code theme. It fails when:
+  - a token the grammar marks as keyword, type, function, string, number, constant,
+    comment, annotation or property renders in the default foreground
+  - one hue covers more than 40% of the colored tokens in a fixture
+  - a fixture shows fewer than 3 syntax hues
+- The VS Code theme sets `semanticHighlighting: true` and maps `semanticTokenColors`.
+  Language servers for Java, C#, Rust, Go and Kotlin then color by meaning rather than by grammar.
+- Every Zed tree-sitter capture name in schema v0.2.0 maps to a role. Zed grammars share
+  one capture vocabulary, so full capture coverage means coverage in every language.
+- `npm run preview` writes `preview/index.html` with all fixtures rendered by Shiki. It is
+  used for visual review and README screenshots.
+
+Shiki is a dev dependency, used only for tests and the preview.
+
 The coverage gate is above 90% for statements, branches, functions and lines, locked in
 `vitest.config.ts`.
 
@@ -80,6 +107,6 @@ The coverage gate is above 90% for statements, branches, functions and lines, lo
 
 1. Lupin Theme is selectable in VS Code and in Zed, and both match the turso.tech code block look.
 2. Both editors use the same color for every shared role.
-3. All gates in `01-palette.md` pass in tests.
+3. All gates in `01-palette.md` pass in tests, including the cross-language fixtures (23 languages).
 4. Typecheck clean, lint 0 errors, suite green, coverage above 90% on all four metrics.
 5. README covers install for both editors, font setup and screenshots.
