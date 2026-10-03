@@ -24,4 +24,6 @@ describe('deltaE', () => {
     expect(deltaE('#FF0000', '#00FF00', 'deuteranopia')).toBeLessThan(deltaE('#FF0000', '#00FF00')));
   it('shrinks red/green under protanopia', () =>
     expect(deltaE('#FF0000', '#00FF00', 'protanopia')).toBeLessThan(deltaE('#FF0000', '#00FF00')));
+  it('reproduces the recorded tritanopia separations (01 §5)', () =>
+    expect([deltaE('#7DD3FC', '#34D399', 'tritanopia'), deltaE('#34D399', '#4FF8D2', 'tritanopia')].map((value) => +value.toFixed(3))).toEqual([0.049, 0.112]));
 });
