@@ -14,7 +14,7 @@ Ordered to match `02-attention-hierarchy.md` §3 element table groups.
 |---|---|---|
 | `editor.background` | bg.base | |
 | `editor.foreground` | fg.base | |
-| `editorLineNumber.foreground` | fg.faint | inactive lines |
+| `editorLineNumber.foreground` | fg.subtle | inactive lines; 3.88 on bg.base (fg.faint was 1.84, unreadable). Secondary tier >= 3, `tests/vscode-contrast.test.ts` |
 | `editorLineNumber.activeForeground` | accent | accent spot #5 |
 | `editor.lineHighlightBackground` | line.current | alpha wash, `01` §1 |
 | `editor.lineHighlightBorder` | unset | fill-only per 02, no outline |
@@ -42,8 +42,8 @@ Ordered to match `02-attention-hierarchy.md` §3 element table groups.
 | `editor.findMatchHighlightBackground` | find.match | |
 | `editor.findMatchHighlightBorder` | unset | |
 | `editor.findMatchHighlightForeground` | unset | |
-| `editorBracketMatch.background` | unset | no fill, per 02 rule |
-| `editorBracketMatch.border` | bracket.match | box outline only |
+| `editorBracketMatch.background` | bracket.match | `aquaFaint` fill; unset leaked VS Code's dark green default |
+| `editorBracketMatch.border` | bracket.match border | `aquaBorder` outline |
 | `editorBracketMatch.foreground` | unset | |
 
 ### Indent guides / whitespace (T3)
@@ -54,7 +54,14 @@ Ordered to match `02-attention-hierarchy.md` §3 element table groups.
 | `editorIndentGuide.activeBackground` | indent.guide.active | = fg.faint |
 | `editorWhitespace.foreground` | fg.faint | |
 
-Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Background1-6`, `editorBracketPairGuide.*`) intentionally unset — Lupin doesn't enable rainbow bracket-pair colorization; VS Code falls back to the two keys above.
+Bracket pair colorization is on by default in VS Code; unset `editorBracketHighlight.foreground1..6` leaked VS Code's gold/orchid/blue defaults. Decision (calm turso look): every depth takes punctuation.
+
+| Key | Role | Notes |
+|---|---|---|
+| `editorBracketHighlight.foreground1..6` | punctuation | one color for all depths, 5.45 on bg.base |
+| `editorBracketHighlight.unexpectedBracket.foreground` | error | |
+
+Per-depth guide variants (`editorIndentGuide.(active)Background1-6`, `editorBracketPairGuide.*`) stay unset; VS Code falls back to the indent-guide keys above.
 
 ### Gutter — git + diagnostics (T1)
 
@@ -83,33 +90,33 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 | `editorOverviewRuler.addedForeground` | git.added | |
 | `editorOverviewRuler.modifiedForeground` | git.modified | |
 | `editorOverviewRuler.deletedForeground` | git.deleted | |
-| `editorOverviewRuler.findMatchForeground` | find.match | |
-| `editorOverviewRuler.selectionHighlightForeground` | word.highlight | |
-| `editorOverviewRuler.wordHighlightForeground` | word.highlight | |
-| `editorOverviewRuler.wordHighlightStrongForeground` | word.highlight | |
-| `editorOverviewRuler.wordHighlightTextForeground` | word.highlight | |
+| `editorOverviewRuler.findMatchForeground` | find.mark | `yellowHalf` 50%; find.match at 15% was 1.35 vs bg.base, now 3.64 |
+| `editorOverviewRuler.selectionHighlightForeground` | word.mark | `skyHalf` 50%; was 1.22, now 3.62 |
+| `editorOverviewRuler.wordHighlightForeground` | word.mark | |
+| `editorOverviewRuler.wordHighlightStrongForeground` | word.mark | |
+| `editorOverviewRuler.wordHighlightTextForeground` | word.mark | |
 | `editorOverviewRuler.bracketMatchForeground` | bracket.match | |
 | `minimap.background` | bg.base | |
-| `minimap.findMatchHighlight` | find.match | |
-| `minimap.selectionHighlight` | selection | |
-| `minimap.selectionOccurrenceHighlight` | word.highlight | |
+| `minimap.findMatchHighlight` | find.mark | |
+| `minimap.selectionHighlight` | selection.mark | `aquaHalf` 50%; selection at 15% was 1.42, now 4.26 |
+| `minimap.selectionOccurrenceHighlight` | word.mark | |
 | `minimap.errorHighlight` | error | |
 | `minimap.warningHighlight` | warning | |
 | `minimap.infoHighlight` | info | |
 | `minimapGutter.addedBackground` | git.added | |
 | `minimapGutter.modifiedBackground` | git.modified | |
 | `minimapGutter.deletedBackground` | git.deleted | |
-| `minimapSlider.background` | border.subtle | viewport box |
-| `minimapSlider.hoverBackground` | border.strong | |
-| `minimapSlider.activeBackground` | border.strong | |
+| `minimapSlider.background` | scrollbar.minimap | viewport box, fgSubtle 20%, translucent so code shows through |
+| `minimapSlider.hoverBackground` | scrollbar.minimap.hover | fgSubtle 30% |
+| `minimapSlider.activeBackground` | scrollbar.minimap.active | fgSubtle 35% |
 
 ### Scrollbar (T2)
 
 | Key | Role | Notes |
 |---|---|---|
-| `scrollbarSlider.background` | fg.faint | default thumb |
-| `scrollbarSlider.hoverBackground` | fg.subtle | |
-| `scrollbarSlider.activeBackground` | fg.muted | drag |
+| `scrollbarSlider.background` | scrollbar.thumb | fgSubtle 40% (was opaque fg.faint) |
+| `scrollbarSlider.hoverBackground` | scrollbar.thumb.hover | fgSubtle 60% |
+| `scrollbarSlider.activeBackground` | scrollbar.thumb.active | fgSubtle 70%, drag |
 | `scrollbar.shadow` | unset | |
 
 ### Tabs + editorGroupHeader (T2/T3)
@@ -184,7 +191,7 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 | `gitDecoration.modifiedResourceForeground` | git.modified | |
 | `gitDecoration.deletedResourceForeground` | git.deleted | |
 | `gitDecoration.untrackedResourceForeground` | git.added | no dedicated role, reuse |
-| `gitDecoration.ignoredResourceForeground` | git.ignored | = fg.faint |
+| `gitDecoration.ignoredResourceForeground` | git.ignored | = fg.subtle, 3.88 on sidebar (fg.faint was 1.84) |
 | `gitDecoration.conflictingResourceForeground` | git.conflict | = peach |
 | `gitDecoration.renamedResourceForeground` | git.modified | no dedicated role, reuse |
 | `gitDecoration.stageModifiedResourceForeground` | git.modified | |
@@ -197,7 +204,7 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 |---|---|---|
 | `activityBar.background` | bg.deep | |
 | `activityBar.foreground` | fg.base | active/selected icon |
-| `activityBar.inactiveForeground` | fg.faint | default icon |
+| `activityBar.inactiveForeground` | fg.subtle | default icon, 4.02 on bg.deep (fg.faint was 1.91) |
 | `activityBar.activeBorder` | accent | accent spot #2 (edge bar, same pattern as tab underline) |
 | `activityBar.activeBackground` | unset | never a fill, per 02 |
 | `activityBar.activeFocusBorder` | accent | same spot, focus variant |
@@ -216,7 +223,7 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 | `statusBar.debuggingForeground` | warning | |
 | `statusBar.debuggingBorder` | warning | top edge, signals via hue not a full recolor |
 | `statusBar.noFolderBackground` | bg.deep | |
-| `statusBar.noFolderForeground` | fg.faint | |
+| `statusBar.noFolderForeground` | fg.subtle | 4.02 on bg.deep; dimmed on purpose (02 T3), secondary tier >= 3 |
 | `statusBar.noFolderBorder` | border.subtle | |
 | `statusBarItem.hoverBackground` | bg.base | |
 | `statusBarItem.activeBackground` | bg.raised | pressed |
@@ -275,8 +282,8 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 |---|---|---|
 | `input.background` | bg.deep | inset "well" rule applies everywhere, incl. inside overlays |
 | `input.foreground` | fg.base | |
-| `input.border` | border.subtle | border.strong on hover/focus is state, not a separate key — VS Code has no `input.hoverBorder`; focus uses `focusBorder` globally |
-| `input.placeholderForeground` | fg.faint | |
+| `input.border` | border.strong | edge of the inset well; focus is state, not a separate key — VS Code has no `input.hoverBorder`; focus uses `focusBorder` globally |
+| `input.placeholderForeground` | fg.subtle | 4.02 on bg.deep (fg.faint was 1.91); secondary tier >= 3 |
 | `inputOption.activeBorder` | accent | covered by spot #3 |
 | `inputOption.activeBackground` | accent.soft | |
 | `inputOption.activeForeground` | fg.base | |
@@ -293,12 +300,12 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 | `focusBorder` | accent | accent spot #3, global fallback |
 | `button.background` | accent | accent spot #4 |
 | `button.foreground` | bg.deep | ink on accent, contrast-check flagged to color-scientist |
-| `button.hoverBackground` | accent | same fill, color-scientist tunes the delta |
+| `button.hoverBackground` | accent.hover | `aquaBright`, turso hover color; ink 16.14 |
 | `button.border` | unset | |
 | `button.secondaryBackground` | bg.raised | |
 | `button.secondaryForeground` | fg.base | |
 | `button.secondaryBorder` | border.subtle | |
-| `button.secondaryHoverBackground` | bg.raised | VS Code has no secondary-hover-border key; the border.strong-on-hover intent from 02 can't be expressed here — **gap**, see §bottom |
+| `button.secondaryHoverBackground` | bg.overlay | next surface step up; fg.base 12.68. VS Code has no secondary-hover-border key — **gap**, see §bottom |
 | `badge.background` | bg.raised | generic count |
 | `badge.foreground` | fg.base | |
 | `dropdown.background` | bg.raised | |
@@ -316,6 +323,8 @@ Per-depth bracket-pair-colorization variants (`editorIndentGuide.(active)Backgro
 | `quickInputList.focusBackground` | accent.soft | result row selected |
 | `quickInputList.focusForeground` | fg.base | |
 | `quickInputList.focusIconForeground` | fg.base | |
+| `pickerGroup.foreground` | fg.muted | group label, 4.54 on bg.overlay |
+| `pickerGroup.border` | border.subtle | |
 
 No dedicated "input row" background key exists for quick input — the text box inherits `input.background` (bg.deep), matching 02's "inputs stay bg.deep even inside an overlay" rule without a separate key.
 
@@ -421,11 +430,18 @@ No dedicated "input row" background key exists for quick input — the text box 
 
 | Key | Role | Notes |
 |---|---|---|
+| `editorWidget.background` | bg.overlay | suggest, hover, find widgets; unset fell back to VS Code's gray default |
+| `editorWidget.foreground` | fg.base | 12.68 |
+| `editorWidget.border` | border.strong | |
+| `editorInlayHint.foreground` | fg.subtle | comment tier, 3.43 on bg.raised |
+| `editorInlayHint.background` | bg.raised | |
+| `debugToolBar.background` | bg.overlay | |
+| `progressBar.background` | accent | progress is an activity indicator; 13.97 on bg.base |
 | `widget.border` | border.subtle | |
 | `widget.shadow` | unset | |
 | `sash.hoverBorder` | border.strong | drag-handle hover, kept out of the accent budget (not a focus ring) |
-| `textLink.foreground` | sky | reuse markdown link_text role |
-| `textLink.activeForeground` | sky | no distinct hover hue defined, reuse |
+| `textLink.foreground` | link | `roles.ui.link` = sky, same color as markdown link_text |
+| `textLink.activeForeground` | link | no distinct hover hue defined, reuse |
 | `icon.foreground` | fg.muted | |
 | `descriptionForeground` | fg.muted | |
 | `errorForeground` | error | global fallback |
@@ -433,7 +449,7 @@ No dedicated "input row" background key exists for quick input — the text box 
 | `disabledForeground` | fg.faint | |
 | `selection.background` | accent.soft | workbench text-field selection (not editor) |
 
-Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*`, `debugIcon.*`, `debugToolBar.*`, bracket-pair per-depth 1-6, `mergeEditor.conflict.*handled*` — all exist in the VS Code reference but are outside the 02 element table, intentionally left to derive VS Code defaults).
+Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*`, `debugIcon.*`, `debugToolBar.*` other than its background, bracket-pair guides per depth, `mergeEditor.conflict.*handled*` — all exist in the VS Code reference but are outside the 02 element table, intentionally left to derive VS Code defaults).
 
 ## 2. VS Code tokenColors
 
@@ -476,7 +492,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `string.regexp` | regexp | — |
 | `punctuation.definition.string.begin.regexp`, `punctuation.definition.group.regexp`, `punctuation.definition.character-class.regexp` | regexp | — |
 | `invalid` | invalid | underline |
-| `invalid.deprecated` | fg.subtle | strikethrough (deprecated, separate from invalid) |
+| `invalid.deprecated` | deprecated (fg.subtle) | strikethrough, `roles.syntax.deprecated` |
 
 ### Markdown
 
@@ -661,7 +677,7 @@ Count: ~195 keys set across the groups above (excludes `symbolIcon.*`, `charts.*
 | `type` | type | italic |
 | `parameter` | parameter | italic |
 | `variable` | variable | — |
-| `variable.readonly` | constant | — |
+| `variable.readonly` | variable | — (TS `const` references stay fg.base, same as Zed `variable`) |
 | `property` | property | — |
 | `property.readonly` | property | — |
 | `decorator` | attribute | italic |
@@ -685,7 +701,7 @@ Modifiers only change fontStyle, never color, except `deprecated`:
 | Modifier | Effect |
 |---|---|
 | `declaration`, `definition` | no change |
-| `readonly` | color → constant (see `variable.readonly`/`property.readonly` rows above) |
+| `readonly` | no change (`variable.readonly` = variable, `property.readonly` = property) |
 | `static` | no change (Dracula doesn't split static visually either) |
 | `deprecated` | strikethrough, color unchanged |
 | `abstract` | italic added |
@@ -715,8 +731,8 @@ From `ThemeStyleContent` (142 properties total in schema v0.2.0). `_background`/
 | `text` | fg.base |
 | `text.muted` | fg.muted |
 | `text.disabled` | fg.faint |
-| `text.placeholder` | fg.faint |
-| `text.accent` | accent |
+| `text.placeholder` | fg.subtle (3.23 on bg.overlay, 4.02 on bg.deep; fg.faint was 1.53–1.91) |
+| `text.accent` | accent (fuzzy-match highlight in pickers, links; sanctioned in 02 §4) |
 | `icon` | fg.muted |
 | `icon.muted` | fg.subtle |
 | `icon.disabled` | fg.faint |
@@ -731,12 +747,12 @@ From `ThemeStyleContent` (142 properties total in schema v0.2.0). `_background`/
 | `element.hover` | bg.deep |
 | `element.active` | accent.soft |
 | `element.selected` | accent.soft |
-| `element.disabled` | fg.faint |
+| `element.disabled` | bg.raised (02 disabled rule; was fg.faint = `text.disabled`, 1.00:1) |
 | `ghost_element.background` | unset (transparent) |
 | `ghost_element.hover` | bg.deep |
 | `ghost_element.active` | bg.raised |
 | `ghost_element.selected` | accent.soft |
-| `ghost_element.disabled` | fg.faint |
+| `ghost_element.disabled` | bg.raised |
 
 ### Editor
 
@@ -745,7 +761,7 @@ From `ThemeStyleContent` (142 properties total in schema v0.2.0). `_background`/
 | `editor.background` | bg.base |
 | `editor.foreground` | fg.base |
 | `editor.gutter.background` | bg.base |
-| `editor.line_number` | fg.faint |
+| `editor.line_number` | fg.subtle (3.88 on bg.base) |
 | `editor.active_line_number` | accent |
 | `editor.active_line.background` | line.current |
 | `editor.highlighted_line.background` | word.highlight |
@@ -778,7 +794,7 @@ Status/git families: `<status>` and `<status>.border` take the solid role; `<sta
 | `error` | error | editor.invalidBackground (redSoft) |
 | `warning` | warning | editor.findMatch (yellowSoft) |
 | `info` | info | editor.wordHighlight (skyFaint) |
-| `hint` | hint | bg.raised (no gray wash role) |
+| `hint` | hint | bg.raised (no gray wash role); hint text 3.43 on it, comment tier >= 3 |
 | `success` | success | editor.diffAdded (limeFaint) |
 | `hidden` | fg.faint | bg.raised (no gray wash role) |
 | `unreachable` | fg.subtle | bg.raised (no gray wash role) |
@@ -808,8 +824,8 @@ Status/git families: `<status>` and `<status>.border` take the solid role; `<sta
 |---|---|
 | `scrollbar.track.background` | unset (transparent, matches bg.base) |
 | `scrollbar.track.border` | unset |
-| `scrollbar.thumb.background` | fg.faint |
-| `scrollbar.thumb.hover_background` | fg.subtle |
+| `scrollbar.thumb.background` | scrollbar.thumb (fgSubtle 40%) |
+| `scrollbar.thumb.hover_background` | scrollbar.thumb.hover (fgSubtle 60%) |
 | `scrollbar.thumb.border` | unset |
 | `tab_bar.background` | bg.deep |
 | `tab.active_background` | bg.base |
@@ -825,7 +841,7 @@ Status/git families: `<status>` and `<status>.border` take the solid role; `<sta
 | `status_bar.background` | bg.deep |
 | `toolbar.background` | bg.base |
 | `drop_target.background` | accent.soft |
-| `link_text.hover` | sky |
+| `link_text.hover` | link |
 
 ### Players (multiplayer cursors) + accents
 
@@ -867,8 +883,8 @@ Role → VS Code representative scope/key → Zed capture/key, to drive a test a
 | border.strong | `dropdown.border` | `border.selected` |
 | fg.base | `editor.foreground` | `editor.foreground` / `text` |
 | fg.muted | `sideBar.foreground` | `text.muted` |
-| fg.subtle | — (no dedicated workbench key; syntax `comment` scope) | `icon.muted` |
-| fg.faint | `editorLineNumber.foreground` | `editor.line_number` |
+| fg.subtle | `editorLineNumber.foreground` | `editor.line_number` |
+| fg.faint | `editorWhitespace.foreground` | `editor.invisible` |
 | accent | `editorCursor.foreground` | `editor.active_line_number` / `players[0].cursor` |
 | accent.soft | `list.activeSelectionBackground` | `element.selected` |
 | error | `editorError.foreground` | `error` |
@@ -886,7 +902,7 @@ Role → VS Code representative scope/key → Zed capture/key, to drive a test a
 | property | `variable.other.property` (tokenColors) / `property` (semanticTokenColors) | `property` |
 | string | `string.quoted` (tokenColors) | `string` |
 | function | `entity.name.function` (tokenColors) / `function` (semanticTokenColors) | `function` |
-| constant | `variable.other.constant` (tokenColors) / `variable.readonly` (semanticTokenColors) | `constant` |
+| constant | `variable.other.constant` (tokenColors) / `enumMember` (semanticTokenColors) | `constant` |
 | number | `constant.numeric` (tokenColors) | `number` |
 | type | `entity.name.type` (tokenColors) / `type` (semanticTokenColors) | `type` |
 | variable | `variable` (tokenColors) | `variable` |
@@ -919,8 +935,14 @@ Role → VS Code representative scope/key → Zed capture/key, to drive a test a
 3. **Zed has no `lifetime` capture** — closest is `label` (orchid, italic), same color family as `01` already assigns to lifetime, so visually harmless; capture-name gap only.
 4. **Zed has no `modifier`/`storage` capture** (already known from `05-dracula-lessons.md`) — declaration keywords fall to `keyword` (fuchsia) in Zed, accepted degradation.
 5. **`git.conflict` has no alpha-wash variant** in `01-palette.md` §1 — needed for `mergeEditor.conflictingLines.background`; flagged to color-scientist, not invented here.
-6. **`button.secondaryHoverBackground`** can't express 02's "border.strong on hover" rule — VS Code has no secondary-button hover-border key, only hover-background; mapped to bg.raised (no-op) instead.
+6. **`button.secondaryHoverBackground`** can't express 02's "border.strong on hover" rule — VS Code has no secondary-button hover-border key, only hover-background; mapped to bg.overlay (one surface step up) instead.
 7. **No dedicated roles exist for**: `gitDecoration.untrackedResourceForeground`, `gitDecoration.renamedResourceForeground` (VS Code), Zed's `renamed` — all reuse `git.added`/`git.modified` per existing "no dedicated role" notes already present in `01-palette.md`'s own alpha-variant and role-map sections, not new gaps introduced here.
+
+## UI contrast gates
+
+`tests/vscode-contrast.test.ts` and `tests/zed-contrast.test.ts` check `[foreground key, background key, minimum]` tuples on the built themes; translucent backgrounds are composited onto the surface they sit on. Tiers: text >= 4.5; non-text indicators (icons, cursor, focus ring, active borders, progress) >= 3; fg.subtle tier (line numbers, placeholders, inlay hints, ignored files, no-folder status bar) >= 3. Disabled states are exempt (WCAG 1.4.3). Divider borders (border.subtle/strong, 1.27–1.63) are separators, not component boundaries, and are not gated.
+
+Accepted exception: Zed `text.muted` on `element.selected` (accent.soft) is 3.84 over bg.base, 4.06 over bg.deep, 3.08 over bg.overlay. Secondary labels inside a selected row; `text` on the same fill is 8.61–11.34.
 
 ## Roles referenced that are NOT in 01-palette.md
 
