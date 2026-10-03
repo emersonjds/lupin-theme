@@ -1,0 +1,17 @@
+{
+  "name": "lupin-theme",
+  "displayName": "Lupin Theme",
+  "description": "A calm dark theme inspired by the turso.tech code blocks.",
+  "version": "0.1.0",
+  "publisher": "emersonjds",
+  "author": "Emerson Silva",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/emersonjds/lupin-theme" },
+  "engines": { "vscode": "^1.80.0" },
+  "categories": ["Themes"],
+  "keywords": ["lupin", "lupin-theme", "dark", "theme", "turso"],
+  "files": ["themes", "LICENSE", "README.md"],
+  "contributes": {
+    "themes": [{ "label": "Lupin Theme", "uiTheme": "vs-dark", "path": "./themes/lupin-theme-color-theme.json" }]
+  }
+}

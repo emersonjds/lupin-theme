@@ -40,5 +40,17 @@ export const palette = {
   redSoft: '#FF666326',
   redFaint: '#FF66631A',
   limeFaint: '#A4DF951A',
+  limeSoft: '#A4DF9526',
   orchidSoft: '#B98CCD26',
+  // marks on the overview ruler and minimap, not under code
+  yellowHalf: '#E0CA3C80',
+  skyHalf: '#7DD3FC80',
+  aquaHalf: '#4FF8D280',
+  // scrollbar and minimap sliders: fgSubtle at 40/60/70% and 20/30/35%
+  subtleThumb: '#5B758A66',
+  subtleThumbHover: '#5B758A99',
+  subtleThumbActive: '#5B758AB3',
+  subtleMinimap: '#5B758A33',
+  subtleMinimapHover: '#5B758A4D',
+  subtleMinimapActive: '#5B758A59',
 } as const satisfies Record<string, Hex>;
