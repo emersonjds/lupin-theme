@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Repo `/Users/emerson/Documents/workspace/open-source/turso-theme`, branch `feat/ZED-5-lupin-theme`.
+- Repo `/Users/emerson/Documents/workspace/open-source/lupin-theme`, branch `feat/ZED-5-lupin-theme`.
 - Display name `Lupin Theme`, id `lupin-theme`, publisher `emersonjds`, author `Emerson Silva`, license MIT, repository `https://github.com/emersonjds/lupin-theme`.
 - Hex literals only in `src/palette.ts`.
 - No `any`, no `as unknown as`, named exports, arrow functions, no abbreviations in names.
