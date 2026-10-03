@@ -39,6 +39,8 @@ export const tokenColors: TokenColor[] = [
   rule('Function', ['entity.name.function', 'meta.function-call.object', 'support.function'], syntax.function),
   rule('Decorator', ['meta.decorator variable.other.readwrite', 'meta.decorator variable.other.object'], syntax.attribute),
   rule('Namespace', ['entity.name.namespace'], syntax.namespace),
+  rule('Label', ['entity.name.label'], syntax.label),
+  rule('Preprocessor', ['meta.preprocessor'], syntax.preproc),
   rule('Tag', ['entity.name.tag'], syntax.tag),
   rule('Attribute', ['entity.other.attribute-name'], syntax.attribute),
   rule('Punctuation', ['punctuation', 'punctuation.definition', 'punctuation.separator', 'punctuation.terminator'], syntax.punctuation),
