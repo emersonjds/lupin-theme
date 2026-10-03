@@ -10,7 +10,7 @@ export const roles = {
   accent: { base: palette.aqua, soft: palette.aquaSoft },
   ui: { link: palette.sky },
   status: { error: palette.red, warning: palette.yellow, info: palette.sky, hint: palette.fgSubtle, success: palette.lime },
-  git: { added: palette.lime, modified: palette.sky, deleted: palette.red, ignored: palette.fgFaint, conflict: palette.orchid },
+  git: { added: palette.lime, modified: palette.sky, deleted: palette.red, ignored: palette.fgSubtle, conflict: palette.orchid },
   editor: {
     cursor: palette.aqua,
     selection: palette.aquaSoft,
