@@ -1319,7 +1319,7 @@
       "name": "Swift modifier",
       "scope": [
         "storage.modifier.swift",
-        "keyword.other.declaration-specifier"
+        "keyword.other.declaration-specifier.swift"
       ],
       "settings": {
         "foreground": "#B98CCD"
@@ -1457,7 +1457,7 @@
       "foreground": "#E7E8E8"
     },
     "variable.readonly": {
-      "foreground": "#4FF8D2"
+      "foreground": "#E7E8E8"
     },
     "property": {
       "foreground": "#7DD3FC"

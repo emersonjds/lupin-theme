@@ -149,7 +149,7 @@ export const tokenColors: TokenColor[] = [
   rule('Ruby function', ['entity.name.function.ruby'], syntax.function),
 
   // Swift
-  rule('Swift modifier', ['storage.modifier.swift', 'keyword.other.declaration-specifier'], syntax.modifier),
+  rule('Swift modifier', ['storage.modifier.swift', 'keyword.other.declaration-specifier.swift'], syntax.modifier),
   rule('Swift primitive', ['keyword.expressions-and-types.swift'], syntax.type),
   rule('Swift attribute', ['support.type.attribute.swift'], syntax.attribute),
 

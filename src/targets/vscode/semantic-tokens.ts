@@ -16,7 +16,7 @@ export const semanticTokenColors = {
   type: toSemantic(syntax.type),
   parameter: toSemantic(syntax.parameter),
   variable: toSemantic(syntax.variable),
-  'variable.readonly': toSemantic(syntax.constant),
+  'variable.readonly': toSemantic(syntax.variable),
   property: toSemantic(syntax.property),
   'property.readonly': toSemantic(syntax.property),
   decorator: toSemantic(syntax.attribute),
