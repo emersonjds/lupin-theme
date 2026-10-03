@@ -58,9 +58,9 @@ const lch = (hex: Hex) => {
 
 describe('rule checks (01 §5)', () => {
   const accents = (['keyword', 'modifier', 'property', 'string', 'function', 'number', 'type', 'invalid'] as const).map((name) => [name, syntax[name].color] as const);
-  const chromatic = (['aqua', 'fuchsia', 'orchid', 'sky', 'emerald', 'yellow', 'peach', 'red', 'lime'] as const).map((name) => [name, palette[name]] as const);
+  const chromatic = (['aqua', 'fuchsia', 'orchid', 'sky', 'emerald', 'yellow', 'peach', 'red', 'lime', 'pistachio'] as const).map((name) => [name, palette[name]] as const);
   const neutrals = Object.entries({ ...palette }).filter(([name]) => /^(bg|border)[A-Z][a-z]+$|^fg(Muted|Subtle|Faint)$/.test(name));
-  const siblings = new Set(['fuchsia/orchid', 'emerald/lime']);
+  const siblings = new Set(['fuchsia/orchid', 'emerald/lime', 'lime/pistachio']);
   const closeHues = chromatic
     .flatMap(([first, firstHex], index) => chromatic.slice(index + 1).map(([second, secondHex]) => [`${first}/${second}`, firstHex, secondHex] as const))
     .filter(([pair, first, second]) => !siblings.has(pair) && 180 - Math.abs(Math.abs(lch(first).hue - lch(second).hue) - 180) < 30);
@@ -82,4 +82,14 @@ describe('rule checks (01 §5)', () => {
     const { chroma, hue } = lch(hex);
     if (chroma > 0.01) expect([hue >= 238, hue <= 250]).toEqual([true, true]);
   });
+});
+
+describe('string, constant and current line retune (01 §9 #11)', () => {
+  const hueGap = (first: Hex, second: Hex) => 180 - Math.abs(Math.abs(lch(first).hue - lch(second).hue) - 180);
+
+  it('string sits at least 30° in hue from function', () =>
+    expect(hueGap(syntax.string.color, syntax.function.color)).toBeGreaterThanOrEqual(30));
+
+  it('regexp and inline code follow string', () =>
+    expect([syntax.regexp.color, syntax.literal.color]).toEqual([syntax.string.color, syntax.string.color]));
 });

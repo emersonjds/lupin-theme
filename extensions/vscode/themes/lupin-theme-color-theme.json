@@ -326,7 +326,7 @@
         "string.quoted"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -601,7 +601,7 @@
         "punctuation.definition.string"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -629,7 +629,7 @@
         "string.regexp"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -640,7 +640,7 @@
         "punctuation.definition.character-class.regexp"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -704,7 +704,7 @@
         "markup.fenced_code.block"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -820,7 +820,7 @@
         "meta.tag string.quoted"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -919,7 +919,7 @@
         "string.quoted.double.json"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -957,7 +957,7 @@
         "punctuation.definition.variable.shell"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -1133,7 +1133,7 @@
         "string.interpolated.python"
       ],
       "settings": {
-        "foreground": "#34D399"
+        "foreground": "#B9EC89"
       }
     },
     {
@@ -1508,7 +1508,7 @@
       "foreground": "#5B758A"
     },
     "string": {
-      "foreground": "#34D399"
+      "foreground": "#B9EC89"
     },
     "keyword": {
       "foreground": "#E879F9"
@@ -1517,7 +1517,7 @@
       "foreground": "#FDA77F"
     },
     "regexp": {
-      "foreground": "#34D399"
+      "foreground": "#B9EC89"
     },
     "operator": {
       "foreground": "#818C96"
