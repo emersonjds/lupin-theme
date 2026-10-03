@@ -87,7 +87,8 @@ Run: `npm i -D typescript tsx vitest @vitest/coverage-v8 eslint typescript-eslin
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src", "scripts", "tests", "*.ts"]
+  "include": ["src", "scripts", "tests", "*.ts"],
+  "exclude": ["tests/fixtures"]
 }
 ```
 
@@ -111,7 +112,7 @@ export default defineConfig({
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['node_modules', 'coverage', 'preview', 'extensions'] },
+  { ignores: ['node_modules', 'coverage', 'preview', 'extensions', 'tests/fixtures'] },
   ...tseslint.configs.strict,
 );
 ```
