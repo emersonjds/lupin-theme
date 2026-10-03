@@ -28,6 +28,18 @@ describe('zed theme', () => {
 
   it.each(requiredCaptures)('maps capture %s', (capture) => expect(captures).toHaveProperty([capture]));
 
+  it.each([
+    ['element.disabled', roles.bg.raised],
+    ['ghost_element.disabled', roles.bg.raised],
+    ['text.placeholder', roles.fg.subtle],
+    ['editor.line_number', roles.fg.subtle],
+    ['scrollbar.thumb.background', roles.scrollbar.thumb],
+    ['scrollbar.thumb.hover_background', roles.scrollbar.thumbHover],
+    ['text.accent', roles.accent.base],
+    ['icon.accent', roles.accent.base],
+    ['link_text.hover', roles.ui.link],
+  ])('maps %s to %s', (key, value) => expect(style).toHaveProperty([key], value));
+
   it('sets the local player cursor and selection to the accent', () => {
     expect(style.players[0].cursor).toBe(roles.accent.base);
     expect(style.players[0].selection).toBe(roles.editor.selection);

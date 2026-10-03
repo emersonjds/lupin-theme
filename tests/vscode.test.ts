@@ -21,6 +21,46 @@ describe('vscode workbench colors', () => {
     expect(colors).not.toHaveProperty(['tab.activeBorderTop']);
   });
 
+  const { accent, bg, border, editor, fg, scrollbar, status, syntax, ui } = roles;
+  it.each([
+    ...[1, 2, 3, 4, 5, 6].map((depth) => [`editorBracketHighlight.foreground${depth}`, syntax.punctuation.color]),
+    ['editorBracketHighlight.unexpectedBracket.foreground', status.error],
+    ['editorBracketMatch.background', editor.bracketMatch],
+    ['editorBracketMatch.border', editor.bracketMatchBorder],
+    ['editorWidget.background', bg.overlay],
+    ['editorWidget.border', border.strong],
+    ['editorLineNumber.foreground', fg.subtle],
+    ['gitDecoration.ignoredResourceForeground', fg.subtle],
+    ['activityBar.inactiveForeground', fg.subtle],
+    ['statusBar.noFolderForeground', fg.subtle],
+    ['input.placeholderForeground', fg.subtle],
+    ['input.border', border.strong],
+    ['button.hoverBackground', accent.hover],
+    ['button.secondaryHoverBackground', bg.overlay],
+    ['progressBar.background', accent.base],
+    ['editorInlayHint.foreground', fg.subtle],
+    ['editorInlayHint.background', bg.raised],
+    ['pickerGroup.foreground', fg.muted],
+    ['pickerGroup.border', border.subtle],
+    ['debugToolBar.background', bg.overlay],
+    ['editorOverviewRuler.findMatchForeground', editor.findMark],
+    ['editorOverviewRuler.selectionHighlightForeground', editor.wordMark],
+    ['editorOverviewRuler.wordHighlightForeground', editor.wordMark],
+    ['minimap.findMatchHighlight', editor.findMark],
+    ['minimap.selectionHighlight', editor.selectionMark],
+    ['minimap.selectionOccurrenceHighlight', editor.wordMark],
+    ['scrollbarSlider.background', scrollbar.thumb],
+    ['scrollbarSlider.hoverBackground', scrollbar.thumbHover],
+    ['scrollbarSlider.activeBackground', scrollbar.thumbActive],
+    ['minimapSlider.background', scrollbar.minimap],
+    ['minimapSlider.hoverBackground', scrollbar.minimapHover],
+    ['minimapSlider.activeBackground', scrollbar.minimapActive],
+    ['textLink.foreground', ui.link],
+    ['notificationLink.foreground', ui.link],
+  ])('maps %s to %s', (key, value) => expect(colors[key]).toBe(value));
+
+  it.each(Object.entries(roles.scrollbar))('keeps scrollbar.%s translucent', (_, value) => expect(value).toHaveLength(9));
+
   it('paints the editor with bg.base and fg.base', () => {
     expect(colors['editor.background']).toBe(roles.bg.base);
     expect(colors['editor.foreground']).toBe(roles.fg.base);

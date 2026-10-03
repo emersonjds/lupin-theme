@@ -1,7 +1,7 @@
 import type { Hex } from '../../color';
 import { roles } from '../../roles';
 
-const { bg, fg, border, accent, editor, status, git, ansi, ui } = roles;
+const { bg, fg, border, accent, editor, status, git, ansi, syntax, scrollbar, ui } = roles;
 
 export const colors: Record<string, Hex> = {
   // Editor core
@@ -23,7 +23,15 @@ export const colors: Record<string, Hex> = {
   'editor.findMatchBackground': editor.findCurrent,
   'editor.findMatchBorder': editor.findCurrentBorder,
   'editor.findMatchHighlightBackground': editor.findMatch,
+  'editorBracketMatch.background': editor.bracketMatch,
   'editorBracketMatch.border': editor.bracketMatchBorder,
+  'editorBracketHighlight.foreground1': syntax.punctuation.color,
+  'editorBracketHighlight.foreground2': syntax.punctuation.color,
+  'editorBracketHighlight.foreground3': syntax.punctuation.color,
+  'editorBracketHighlight.foreground4': syntax.punctuation.color,
+  'editorBracketHighlight.foreground5': syntax.punctuation.color,
+  'editorBracketHighlight.foreground6': syntax.punctuation.color,
+  'editorBracketHighlight.unexpectedBracket.foreground': status.error,
 
   // Indent guides / whitespace
   'editorIndentGuide.background': editor.indentGuide,
@@ -39,6 +47,8 @@ export const colors: Record<string, Hex> = {
   'editorWarning.foreground': status.warning,
   'editorInfo.foreground': status.info,
   'editorHint.foreground': status.hint,
+  'editorInlayHint.foreground': fg.subtle,
+  'editorInlayHint.background': bg.raised,
 
   // Overview ruler + minimap
   'editorOverviewRuler.border': border.subtle,
@@ -48,30 +58,30 @@ export const colors: Record<string, Hex> = {
   'editorOverviewRuler.addedForeground': git.added,
   'editorOverviewRuler.modifiedForeground': git.modified,
   'editorOverviewRuler.deletedForeground': git.deleted,
-  'editorOverviewRuler.findMatchForeground': editor.findMatch,
-  'editorOverviewRuler.selectionHighlightForeground': editor.wordHighlight,
-  'editorOverviewRuler.wordHighlightForeground': editor.wordHighlight,
-  'editorOverviewRuler.wordHighlightStrongForeground': editor.wordHighlight,
-  'editorOverviewRuler.wordHighlightTextForeground': editor.wordHighlight,
+  'editorOverviewRuler.findMatchForeground': editor.findMark,
+  'editorOverviewRuler.selectionHighlightForeground': editor.wordMark,
+  'editorOverviewRuler.wordHighlightForeground': editor.wordMark,
+  'editorOverviewRuler.wordHighlightStrongForeground': editor.wordMark,
+  'editorOverviewRuler.wordHighlightTextForeground': editor.wordMark,
   'editorOverviewRuler.bracketMatchForeground': editor.bracketMatchBorder,
   'minimap.background': bg.base,
-  'minimap.findMatchHighlight': editor.findMatch,
-  'minimap.selectionHighlight': editor.selection,
-  'minimap.selectionOccurrenceHighlight': editor.wordHighlight,
+  'minimap.findMatchHighlight': editor.findMark,
+  'minimap.selectionHighlight': editor.selectionMark,
+  'minimap.selectionOccurrenceHighlight': editor.wordMark,
   'minimap.errorHighlight': status.error,
   'minimap.warningHighlight': status.warning,
   'minimap.infoHighlight': status.info,
   'minimapGutter.addedBackground': git.added,
   'minimapGutter.modifiedBackground': git.modified,
   'minimapGutter.deletedBackground': git.deleted,
-  'minimapSlider.background': border.subtle,
-  'minimapSlider.hoverBackground': border.strong,
-  'minimapSlider.activeBackground': border.strong,
+  'minimapSlider.background': scrollbar.minimap,
+  'minimapSlider.hoverBackground': scrollbar.minimapHover,
+  'minimapSlider.activeBackground': scrollbar.minimapActive,
 
   // Scrollbar
-  'scrollbarSlider.background': fg.faint,
-  'scrollbarSlider.hoverBackground': fg.subtle,
-  'scrollbarSlider.activeBackground': fg.muted,
+  'scrollbarSlider.background': scrollbar.thumb,
+  'scrollbarSlider.hoverBackground': scrollbar.thumbHover,
+  'scrollbarSlider.activeBackground': scrollbar.thumbActive,
 
   // Tabs + editorGroupHeader
   'tab.activeBackground': bg.base,
@@ -206,7 +216,7 @@ export const colors: Record<string, Hex> = {
   // Inputs
   'input.background': bg.deep,
   'input.foreground': fg.base,
-  'input.border': border.subtle,
+  'input.border': border.strong,
   'input.placeholderForeground': fg.subtle,
   'inputOption.activeBorder': accent.base,
   'inputOption.activeBackground': accent.soft,
@@ -221,11 +231,11 @@ export const colors: Record<string, Hex> = {
   focusBorder: accent.base,
   'button.background': accent.base,
   'button.foreground': bg.deep,
-  'button.hoverBackground': accent.base,
+  'button.hoverBackground': accent.hover,
   'button.secondaryBackground': bg.raised,
   'button.secondaryForeground': fg.base,
   'button.secondaryBorder': border.subtle,
-  'button.secondaryHoverBackground': bg.raised,
+  'button.secondaryHoverBackground': bg.overlay,
   'badge.background': bg.raised,
   'badge.foreground': fg.base,
   'dropdown.background': bg.raised,
@@ -240,6 +250,8 @@ export const colors: Record<string, Hex> = {
   'quickInputList.focusBackground': accent.soft,
   'quickInputList.focusForeground': fg.base,
   'quickInputList.focusIconForeground': fg.base,
+  'pickerGroup.foreground': fg.muted,
+  'pickerGroup.border': border.subtle,
 
   // Notifications
   'notifications.background': bg.overlay,
@@ -318,6 +330,11 @@ export const colors: Record<string, Hex> = {
   'menubar.selectionBackground': bg.raised,
 
   // Widget / global misc
+  'editorWidget.background': bg.overlay,
+  'editorWidget.foreground': fg.base,
+  'editorWidget.border': border.strong,
+  'debugToolBar.background': bg.overlay,
+  'progressBar.background': accent.base,
   'widget.border': border.subtle,
   'sash.hoverBorder': border.strong,
   'textLink.foreground': ui.link,
