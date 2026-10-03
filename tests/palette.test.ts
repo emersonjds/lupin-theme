@@ -86,6 +86,7 @@ describe('rule checks (01 §5)', () => {
 
 describe('string, constant and current line retune (01 §9 #11)', () => {
   const hueGap = (first: Hex, second: Hex) => 180 - Math.abs(Math.abs(lch(first).hue - lch(second).hue) - 180);
+  const alpha = (hex: Hex) => parseInt(hex.slice(7, 9), 16) / 255;
 
   it('string sits at least 30° in hue from function', () =>
     expect(hueGap(syntax.string.color, syntax.function.color)).toBeGreaterThanOrEqual(30));
@@ -94,4 +95,6 @@ describe('string, constant and current line retune (01 §9 #11)', () => {
     expect([syntax.regexp.color, syntax.literal.color]).toEqual([syntax.string.color, syntax.string.color]));
 
   it('constant shares the number color', () => expect(syntax.constant.color).toBe(syntax.number.color));
+
+  it('line.current washes at least 7% white', () => expect(alpha(editor.lineCurrent)).toBeGreaterThanOrEqual(0.07));
 });
