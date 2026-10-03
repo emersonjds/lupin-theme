@@ -1,0 +1,72 @@
+import type { Hex } from './color';
+import { palette as p } from './palette';
+
+export type Style = { color: Hex; fontStyle?: 'italic' | 'bold' | 'underline' };
+
+export const roles = {
+  bg: { deep: p.bgDeep, base: p.bgBase, raised: p.bgRaised, overlay: p.bgOverlay },
+  border: { subtle: p.borderSubtle, strong: p.borderStrong },
+  fg: { base: p.fgBase, muted: p.fgMuted, subtle: p.fgSubtle, faint: p.fgFaint },
+  accent: { base: p.aqua, soft: p.aquaSoft },
+  status: { error: p.red, warning: p.yellow, info: p.sky, hint: p.fgSubtle, success: p.lime },
+  git: { added: p.lime, modified: p.sky, deleted: p.red, ignored: p.fgFaint, conflict: p.orchid },
+  editor: {
+    cursor: p.aqua,
+    selection: p.aquaSoft,
+    selectionInactive: p.borderStrongHalf,
+    findMatch: p.yellowSoft,
+    findCurrent: p.yellowStrong,
+    findCurrentBorder: p.yellow,
+    wordHighlight: p.skyFaint,
+    lineCurrent: p.whiteTrace,
+    bracketMatch: p.aquaFaint,
+    bracketMatchBorder: p.aquaBorder,
+    indentGuide: p.borderSubtle,
+    indentGuideActive: p.fgFaint,
+    invalidBackground: p.redSoft,
+    diffAdded: p.limeFaint,
+    diffDeleted: p.redFaint,
+    conflictBackground: p.orchidSoft,
+  },
+  syntax: {
+    keyword: { color: p.fuchsia },
+    modifier: { color: p.orchid },
+    property: { color: p.sky },
+    string: { color: p.emerald },
+    function: { color: p.aqua },
+    constant: { color: p.aqua },
+    number: { color: p.peach },
+    type: { color: p.yellow },
+    variable: { color: p.fgBase },
+    parameter: { color: p.fgBase, fontStyle: 'italic' },
+    variableSpecial: { color: p.orchid, fontStyle: 'italic' },
+    operator: { color: p.fgMuted },
+    punctuation: { color: p.fgMuted },
+    comment: { color: p.fgSubtle },
+    tag: { color: p.fuchsia },
+    attribute: { color: p.sky, fontStyle: 'italic' },
+    regexp: { color: p.emerald },
+    escape: { color: p.fuchsia },
+    invalid: { color: p.red, fontStyle: 'underline' },
+    namespace: { color: p.fgBase },
+    label: { color: p.orchid },
+    preproc: { color: p.orchid },
+    title: { color: p.aqua, fontStyle: 'bold' },
+    linkText: { color: p.sky },
+    linkUri: { color: p.fgMuted, fontStyle: 'underline' },
+    emphasis: { color: p.fgBase, fontStyle: 'italic' },
+    strong: { color: p.fgBase, fontStyle: 'bold' },
+    literal: { color: p.emerald },
+    listMarker: { color: p.orchid },
+    quote: { color: p.fgSubtle },
+  },
+  ansi: {
+    black: p.borderStrong, red: p.red, green: p.emerald, yellow: p.yellow,
+    blue: p.blue, magenta: p.fuchsia, cyan: p.aqua, white: p.grayLight,
+    brightBlack: p.fgSubtle, brightRed: p.redBright, brightGreen: p.lime, brightYellow: p.yellowBright,
+    brightBlue: p.sky, brightMagenta: p.fuchsiaBright, brightCyan: p.aquaBright, brightWhite: p.white,
+  },
+} as const satisfies {
+  syntax: Record<string, Style>;
+  [group: string]: Record<string, Hex | Style>;
+};
