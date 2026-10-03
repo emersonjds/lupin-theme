@@ -26,6 +26,8 @@ export const roles = {
     invalidBackground: palette.redSoft,
     diffAdded: palette.limeFaint,
     diffDeleted: palette.redFaint,
+    diffAddedText: palette.limeSoft,
+    diffDeletedText: palette.redSoft,
     conflictBackground: palette.orchidSoft,
   },
   syntax: {
