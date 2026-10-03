@@ -3,15 +3,13 @@ import { roles } from '../../roles';
 
 const { syntax, fg, git, border } = roles;
 
-export type TokenColor = { name: string; scope: string[]; settings: { foreground: Hex; fontStyle?: string } };
+type TokenColor = { name: string; scope: string[]; settings: { foreground: Hex; fontStyle?: string } };
 
 const rule = (name: string, scope: string[], style: { color: Hex; fontStyle?: string }): TokenColor => ({
   name,
   scope,
   settings: style.fontStyle ? { foreground: style.color, fontStyle: style.fontStyle } : { foreground: style.color },
 });
-
-const deprecated = { color: fg.subtle, fontStyle: 'strikethrough' };
 
 export const tokenColors: TokenColor[] = [
   // Generic
@@ -50,7 +48,7 @@ export const tokenColors: TokenColor[] = [
   rule('Regexp', ['string.regexp'], syntax.regexp),
   rule('Regexp punctuation', ['punctuation.definition.string.begin.regexp', 'punctuation.definition.group.regexp', 'punctuation.definition.character-class.regexp'], syntax.regexp),
   rule('Invalid', ['invalid'], syntax.invalid),
-  rule('Deprecated', ['invalid.deprecated'], deprecated),
+  rule('Deprecated', ['invalid.deprecated'], syntax.deprecated),
 
   // Markdown
   rule('Heading', ['markup.heading', 'entity.name.section.markdown'], syntax.title),
@@ -61,6 +59,7 @@ export const tokenColors: TokenColor[] = [
   rule('Link text', ['string.other.link.title.markdown', 'meta.link.inline.description'], syntax.linkText),
   rule('List marker', ['beginning.punctuation.definition.list.markdown'], syntax.listMarker),
   rule('Quote', ['markup.quote.markdown'], syntax.quote),
+  // git roles are UI colors with no syntax Style; diff markup borrows them directly.
   rule('Inserted', ['markup.inserted', 'meta.diff.header.to-file'], { color: git.added }),
   rule('Deleted', ['markup.deleted', 'meta.diff.header.from-file'], { color: git.deleted }),
   rule('Changed', ['markup.changed'], { color: git.modified }),
@@ -158,9 +157,9 @@ export const tokenColors: TokenColor[] = [
   rule('SQL connective', ['keyword.other.alias.sql', 'keyword.other.order.sql', 'keyword.operator.logical.sql', 'keyword.other.DDL.create.II.sql'], syntax.modifier),
   rule('SQL function', ['support.function.sql'], syntax.function),
   rule('SQL type', ['support.type.sql', 'storage.type.sql'], syntax.type),
-  rule('SQL column', ['variable.parameter.sql'], { color: fg.base }),
+  rule('SQL column', ['variable.parameter.sql'], syntax.variable),
 
-  // Diff
+  // Diff: git roles again; the header is chrome text (fg.muted), not punctuation.
   rule('Diff inserted', ['markup.inserted.diff'], { color: git.added }),
   rule('Diff deleted', ['markup.deleted.diff'], { color: git.deleted }),
   rule('Diff header', ['meta.diff.header'], { color: fg.muted }),

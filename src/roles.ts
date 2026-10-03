@@ -1,13 +1,14 @@
 import type { Hex } from './color';
 import { palette } from './palette';
 
-export type Style = { color: Hex; fontStyle?: 'italic' | 'bold' | 'underline' };
+export type Style = { color: Hex; fontStyle?: 'italic' | 'bold' | 'underline' | 'strikethrough' };
 
 export const roles = {
   bg: { deep: palette.bgDeep, base: palette.bgBase, raised: palette.bgRaised, overlay: palette.bgOverlay },
   border: { subtle: palette.borderSubtle, strong: palette.borderStrong },
   fg: { base: palette.fgBase, muted: palette.fgMuted, subtle: palette.fgSubtle, faint: palette.fgFaint },
   accent: { base: palette.aqua, soft: palette.aquaSoft },
+  ui: { link: palette.sky },
   status: { error: palette.red, warning: palette.yellow, info: palette.sky, hint: palette.fgSubtle, success: palette.lime },
   git: { added: palette.lime, modified: palette.sky, deleted: palette.red, ignored: palette.fgFaint, conflict: palette.orchid },
   editor: {
@@ -50,6 +51,7 @@ export const roles = {
     regexp: { color: palette.emerald },
     escape: { color: palette.fuchsia },
     invalid: { color: palette.red, fontStyle: 'underline' },
+    deprecated: { color: palette.fgSubtle, fontStyle: 'strikethrough' },
     namespace: { color: palette.fgBase },
     label: { color: palette.orchid },
     preproc: { color: palette.orchid },

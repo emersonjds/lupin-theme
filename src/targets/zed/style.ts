@@ -1,7 +1,7 @@
 import type { Hex } from '../../color';
 import { roles } from '../../roles';
 
-const { bg, border, fg, accent, status, git, editor, ansi, syntax } = roles;
+const { bg, border, fg, accent, status, git, editor, ansi, ui } = roles;
 
 // Zed paints `<status>.background` as a fill (diff hunks, inlay hints, diagnostics): washes, not solid role colors.
 const statusFamily = (name: string, color: Hex, wash: Hex) => ({
@@ -126,7 +126,7 @@ export const style = {
   'status_bar.background': bg.deep,
   'toolbar.background': bg.base,
   'drop_target.background': accent.soft,
-  'link_text.hover': syntax.linkText.color,
+  'link_text.hover': ui.link,
 
   players: [{ cursor: accent.base, background: accent.base, selection: editor.selection }],
 };
