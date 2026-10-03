@@ -20,12 +20,12 @@ All numbers computed (sRGB → OKLab/OKLCH per Ottosson; WCAG 2.x relative lumin
 | borderStrong | `#283945` | 0.335 0.031 240 | 1.57 vs base | — | border.strong, ansi black | turso exact. Focused/active edges. |
 | fgBase | `#E7E8E8` | 0.930 0.001 197 | 15.23 | -92.2 | fg.base, variable, parameter | turso white/90 flattened. Off-white: full legibility without glare. Brightest text (R11). |
 | fgMuted | `#818C96` | 0.634 0.020 246 | 5.45 | -39.3 | fg.muted, punctuation, operator, link uri | turso gray lifted +0.020 L (§2). Structure glyphs recede; still AA everywhere. |
-| fgSubtle | `#5B758A` | 0.550 0.045 243 | 3.88 | -27.7 | fg.subtle, comment, hint, md quote, ansi bright black | Blue-steel on the bg hue (R1). Comments recede by L (-0.085 vs punctuation) and tint (+0.025 C), still read comfortably (§9.4). |
-| fgFaint | `#3D4246` | 0.376 0.010 242 | 1.84 | -8.3 | fg.faint, line numbers (inactive), git.ignored, indent.guide.active | turso white/20 flattened. Decorative only, never content. |
+| fgSubtle | `#5B758A` | 0.550 0.045 243 | 3.88 | -27.7 | fg.subtle, comment, hint, deprecated, md quote, line numbers (inactive), placeholders, inlay hints, git.ignored, inactive activity-bar icons, ansi bright black | 4.02 deep / 3.88 base / 3.43 raised / 3.23 overlay: the >= 3 secondary tier. Blue-steel on the bg hue (R1). Comments recede by L (-0.085 vs punctuation) and tint (+0.025 C), still read comfortably (§9.4). |
+| fgFaint | `#3D4246` | 0.376 0.010 242 | 1.84 | -8.3 | fg.faint, whitespace, indent.guide.active, disabled text/icons | turso white/20 flattened. 1.91 deep / 1.84 base / 1.63 raised / 1.53 overlay. Decorative only, never content (line numbers, placeholders, git.ignored moved to fgSubtle). |
 | aqua | `#4FF8D2` | 0.884 0.148 174 | 13.97 | -86.8 | accent (single UI accent, R12), cursor, function, method, macro, constant, enum member, md heading, ansi cyan | turso brand. The one saturated signature: "this acts" (calls) and "you are here" (cursor). |
 | fuchsia | `#E879F9` | 0.748 0.207 322 | 7.60 | -53.5 | keyword (control, import, return), tag, escape, interpolation punctuation, ansi magenta | turso exact. Highest chroma: flow changes and structure break-points jump out. |
 | orchid | `#B98CCD` | 0.706 0.105 315 | 6.85 | -48.5 | storage/modifier (public static final class fn def let), self/this, lifetime, label, preproc, md list marker, git.conflict | Fuchsia hue, half chroma (dC 0.102): declaration words stay in the keyword family but stop shouting (§8). |
-| sky | `#7DD3FC` | 0.828 0.101 230 | 11.21 | -73.1 | property, attribute/annotation/decorator, object/JSON/YAML/TOML key, md link text, info, git.modified, ansi bright blue | turso exact. Cool, low chroma: names of things inside things, quiet metadata. |
+| sky | `#7DD3FC` | 0.828 0.101 230 | 11.21 | -73.1 | property, attribute/annotation/decorator, object/JSON/YAML/TOML key, md link text, UI link, info, git.modified, ansi bright blue | turso exact. Cool, low chroma: names of things inside things, quiet metadata. |
 | emerald | `#34D399` | 0.773 0.153 163 | 9.72 | -65.6 | string, regexp, md inline code, ansi green | turso exact. Literal text: "data, not code". |
 | yellow | `#E0CA3C` | 0.833 0.155 100 | 11.29 | -73.5 | type, class, interface, generic, enum, constructor, warning, find.* fills, ansi yellow | turso exact. Warm and bright: in type-heavy languages the shape of the program is its types. |
 | peach | `#FDA77F` | 0.804 0.115 46 | 9.80 | -65.7 | number, boolean, null/nil/None, CSS color/unit | New, between turso red and yellow. Literal values: warm like strings but not text. |
@@ -42,7 +42,7 @@ Normal set reuses core (black `borderStrong`, red `red`, green `emerald`, yellow
 | redBright | `#FE9892` | 0.784 0.123 24 | 9.01 | -61.4 | bright red | red +0.08 L, chroma to gamut; dE 0.103 |
 | yellowBright | `#F7E158` | 0.903 0.155 100 | 14.12 | -87.2 | bright yellow | yellow +0.07 L; dE 0.070 |
 | fuchsiaBright | `#F3A5FF` | 0.827 0.147 322 | 10.36 | -68.7 | bright magenta | fuchsia +0.08 L; dE 0.100 |
-| aquaBright | `#88FFE4` | 0.923 0.115 177 | 15.55 | -93.9 | bright cyan | turso `--turso-aqua-text`; dE 0.051 |
+| aquaBright | `#88FFE4` | 0.923 0.115 177 | 15.55 | -93.9 | bright cyan | turso `--turso-aqua-text`; dE 0.051. Also accent.hover (VS Code `button.hoverBackground`, turso hover color): bgDeep ink on it 16.14 |
 | grayLight | `#C5CACE` | 0.836 0.008 242 | 11.32 | -73.4 | white | turso `light-gray`; dE 0.094 vs fg |
 | white | `#FAFAFA` | 0.985 0.000 90 | 17.91 | -104.0 | bright white | turso `white` |
 
@@ -64,6 +64,11 @@ Composited on `bg.base`. "min code" = lowest WCAG of every code token color (pun
 | invalid background | `#FF666326` | `#311F23` | 4.53 | 3.22 | 0.089 | 4.18 / 2.97 | |
 | diff added bg | `#A4DF951A` | `#1C2825` | 4.44 | 3.16 | 0.083 | 4.08 / 2.90 | |
 | diff deleted bg | `#FF66631A` | `#261B20` | 4.86 | 3.46 | 0.061 | 4.48 / 3.18 | |
+| find.mark | `#E0CA3C80` (yellowHalf) | `#776F2A` | — | — | — | — | Overview ruler / minimap only, never under code. 3.64 vs bg.base (find.match at 15% was 1.35) |
+| word.mark | `#7DD3FC80` (skyHalf) | `#45738A` | — | — | — | — | Same lane. 3.62 (word.highlight was 1.22) |
+| selection.mark | `#4FF8D280` (aquaHalf) | `#2E8675` | — | — | — | — | Minimap selection. 4.26 (selection was 1.42) |
+| scrollbar.thumb / hover / active | `#5B758A66` / `99` / `B3` (subtleThumb*) | `#2C3A46` / `#3C4E5C` / `#445868` | — | — | — | — | fgSubtle at 40/60/70%, translucent so code under the thumb stays visible. 1.60 / 2.17 / 2.53 vs bg.base (was opaque fgFaint/fgSubtle/fgMuted) |
+| scrollbar.minimap / hover / active | `#5B758A33` / `4D` / `59` (subtleMinimap*) | `#1D272F` / `#25313A` / `#283540` | — | — | — | — | Minimap viewport box, about half the scrollbar alpha |
 | cursor | `#4FF8D2` | — | 13.97 | — | — | — | non-text, >= 3:1 |
 | indent.guide | `#1D2A33` | — | 1.27 | — | — | — | borderSubtle |
 | indent.guide.active | `#3D4246` | — | 1.84 | — | — | — | fgFaint |
@@ -103,9 +108,10 @@ Collapsed roles share one palette entry. Font style is part of the role. Italic 
 | Surface | bg.deep / base / raised / overlay | bgDeep / bgBase / bgRaised / bgOverlay | |
 | Surface | border.subtle / border.strong | borderSubtle / borderStrong | |
 | Text | fg.base / muted / subtle / faint | fgBase / fgMuted / fgSubtle / fgFaint | |
-| Accent | accent / accent.soft | aqua / `#4FF8D226` | |
+| Accent | accent / accent.soft / accent.hover | aqua / `#4FF8D226` / aquaBright | |
+| UI | link | sky | |
 | Status | error / warning / info / hint / success | red / yellow / sky / fgSubtle / lime | |
-| Git | added / modified / deleted / ignored / conflict | lime / sky / red / fgFaint / orchid | |
+| Git | added / modified / deleted / ignored / conflict | lime / sky / red / fgSubtle / orchid | |
 | Syntax | keyword | fuchsia | |
 | Syntax | storage / modifier | orchid | |
 | Syntax | property | sky | |
@@ -125,6 +131,7 @@ Collapsed roles share one palette entry. Font style is part of the role. Italic 
 | Syntax | regexp | emerald | (escapes/quantifiers inside take `escape` fuchsia) |
 | Syntax | escape (`\n`, `${ }`, `#{ }`, `\( )`) | fuchsia | |
 | Syntax | invalid | red | underline + `#FF666326` bg |
+| Syntax | deprecated | fgSubtle | strikethrough (comment tier, >= 3) |
 | Syntax | namespace / package | fgBase | |
 | Syntax | label, lifetime | orchid | |
 | Syntax | preproc (`#include`, `#define`) | orchid | |
@@ -135,6 +142,7 @@ Collapsed roles share one palette entry. Font style is part of the role. Italic 
 | Markdown | list marker, quote | orchid / fgSubtle | |
 | Editor | selection / selection.inactive / find.* / word.highlight / line.current / bracket.match / indent guides | §1 alpha table | |
 | Editor | cursor | aqua | |
+| Editor | find.mark / word.mark / selection.mark, scrollbar.* | §1 alpha table | |
 | Terminal | 16 ANSI | §1 terminal table | |
 
 R8: each role resolves to one color in both editors; the VS Code scope and the Zed capture for a role take the same color and style. Exceptions are listed in §8 (Zed capture gaps).
@@ -157,6 +165,7 @@ Thresholds (settled in §9.1):
 | Code tokens >= 4.5:1 | pass. Min = punctuation/operator `#818C96` 5.45; red 6.53; orchid 6.85; fuchsia 7.60; rest >= 9.7 |
 | Comment >= 3:1, target 3.5–4.5 | pass, 3.88 base / 3.43 raised / 3.23 overlay / 4.02 deep |
 | fg.muted >= 4.5:1 | pass, 5.45 base / 4.82 raised / 4.54 overlay |
+| UI pairs in both editors (04 "UI contrast gates") | pass. Text >= 4.5, indicators and the fgSubtle tier >= 3. Zed `hint` on `hint.background` (bg.raised) 3.43, accepted as comment tier |
 | Overlays keep code >= 3:1 | pass on bg.base (min 3.34 find.current) and stacked on line.current (min 3.04 find.current) |
 | Overlays keep comment >= 3:1 | pass for selection.inactive, word.highlight, line.current, bracket.match, invalid, diff.*; **fail** selection 2.73, find.match 2.87, find.current 2.38 (stacked: 2.16–3.18) |
 
@@ -185,6 +194,7 @@ UI pairs (normal / deutan / protan): error/warning 0.249/0.138/0.234; git added/
 
 | Rule | Result |
 |---|---|
+| Tested in | `tests/palette.test.ts` "rule checks": sibling chroma, R1, R3, R9, R11, overlays stacked on line.current |
 | R1 neutral hue | pass: bgDeep 243, bgBase 244, bgRaised 244, bgOverlay 243, borderSubtle 239, borderStrong 240, fgMuted 246, fgSubtle 243, fgFaint 242 (C 0.010); fgBase C 0.001 exempt |
 | R3 accent band | pass: L 0.704 (red) – 0.884 (aqua); C 0.101 (sky) – 0.207 (fuchsia) |
 | R9 hues < 30° apart | aqua/emerald dh 11 dL 0.111 pass; peach/red dh 21 dL 0.100 pass; fuchsia/orchid dh 7 dL 0.042 sibling-exempt (dC 0.102); emerald/lime dh 24 dL 0.072 exempt (lime never in syntax; ANSI green/bright-green pair by design) |
