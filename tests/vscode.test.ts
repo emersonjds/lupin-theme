@@ -43,7 +43,9 @@ describe('vscode token colors', () => {
     ['punctuation.definition.template-expression', roles.syntax.escape],
     ['punctuation.section.embedded', roles.syntax.escape],
     ['entity.name.namespace', roles.syntax.namespace],
+    ['invalid.deprecated', roles.syntax.deprecated],
     ['keyword.other.declaration-specifier.swift', roles.syntax.modifier],
+    ['variable.parameter.sql', roles.syntax.variable],
   ])('colors %s with its role', (scope, style) => {
     const owners = tokenColors.filter((rule) => rule.scope.includes(scope));
     expect(owners.map((rule) => rule.settings.foreground)).toEqual([style.color]);

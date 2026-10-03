@@ -1,8 +1,7 @@
 import type { Hex } from '../../color';
 import { roles } from '../../roles';
 
-const { bg, fg, border, accent, editor, status, git, ansi, syntax } = roles;
-const sky = syntax.linkText.color;
+const { bg, fg, border, accent, editor, status, git, ansi, ui } = roles;
 
 export const colors: Record<string, Hex> = {
   // Editor core
@@ -250,7 +249,7 @@ export const colors: Record<string, Hex> = {
   'notificationsErrorIcon.foreground': status.error,
   'notificationsWarningIcon.foreground': status.warning,
   'notificationsInfoIcon.foreground': status.info,
-  'notificationLink.foreground': sky,
+  'notificationLink.foreground': ui.link,
   'notificationToast.border': border.strong,
 
   // Peek view
@@ -321,8 +320,8 @@ export const colors: Record<string, Hex> = {
   // Widget / global misc
   'widget.border': border.subtle,
   'sash.hoverBorder': border.strong,
-  'textLink.foreground': sky,
-  'textLink.activeForeground': sky,
+  'textLink.foreground': ui.link,
+  'textLink.activeForeground': ui.link,
   'icon.foreground': fg.muted,
   descriptionForeground: fg.muted,
   errorForeground: status.error,

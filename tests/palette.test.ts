@@ -3,14 +3,15 @@ import { composite, contrast, deltaE, type Hex } from '../src/color';
 import { roles } from '../src/roles';
 
 const { syntax, bg, fg, editor } = roles;
-const nonCode = new Set(['comment', 'quote']);
+const nonCode = new Set(['comment', 'quote', 'deprecated']);
 const codeTokens = Object.entries(syntax).filter(([name]) => !nonCode.has(name));
 
 describe('contrast gates (01 §5)', () => {
   it.each(codeTokens)('%s is at least 4.5:1 on bg.base', (_, style) =>
     expect(contrast(style.color, bg.base)).toBeGreaterThanOrEqual(4.5));
 
-  it('comment is at least 3:1 on bg.base', () => expect(contrast(syntax.comment.color, bg.base)).toBeGreaterThanOrEqual(3));
+  it.each([...nonCode])('%s is at least 3:1 on bg.base', (name) =>
+    expect(contrast(syntax[name as keyof typeof syntax].color, bg.base)).toBeGreaterThanOrEqual(3));
 
   it.each([bg.base, bg.raised, bg.overlay])('fg.muted is at least 4.5:1 on %s', (surface) =>
     expect(contrast(fg.muted, surface)).toBeGreaterThanOrEqual(4.5));
