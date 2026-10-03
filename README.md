@@ -80,7 +80,7 @@ Zed `settings.json`:
 
 ## Palette
 
-20 core colors. Full numbers (OKLCH, WCAG, APCA) and the gates behind each choice: `docs/specs/01-palette.md`. The swatch image below predates the string/constant retune (spec §9 #11); the table is current.
+20 core colors. Full numbers (OKLCH, WCAG, APCA) and the gates behind each choice: `docs/specs/01-palette.md`.
 
 ![Lupin Theme 19-color palette swatches](docs/images/palette.png)
 
@@ -130,7 +130,7 @@ The theme is meant for eight-hour sessions, so the goal is less effort per glanc
 - **Mid-chroma accents only.** Every syntax color sits in a fixed band: OKLCH lightness 0.70 to 0.89 and chroma 0.10 to 0.21. Very saturated colors on dark backgrounds appear to vibrate and tire the eye. The band keeps every token readable (≥ 4.5:1) without any color shouting over the code.
 - **Separated in a perceptual color space.** Distances are measured in OKLab (Ottosson, 2020), where equal numbers mean roughly equal visible differences. Every pair of syntax colors is at least ΔE 0.088 apart, about 4 just-noticeable differences.
 - **Hue before lightness for small text.** At 12 to 14 px the eye separates letters by hue much better than by small brightness steps. Strings (pistachio, hue 131°) and calls (aqua, 174°) differ by 43° of hue, so they separate at a glance.
-- **Color-vision deficiency checked.** Every pair is simulated for deuteranopia and protanopia (Machado, Oliveira and Fernandes, 2009) and kept at least ΔE 0.05 apart, with one documented exception below.
+- **Color-vision deficiency checked.** Every pair is simulated for deuteranopia, protanopia and tritanopia (Machado, Oliveira and Fernandes, 2009) and kept at least ΔE 0.05 apart, with one documented exception below.
 - **Visible current line, without a border.** The cursor line gets a 7% white wash (ΔE 0.073 from the background), easy to find on non-retina panels. Every code token stays at least 3:1 even under a search match stacked on the current line.
 - **Comments recede by design.** Blue-steel `#5B758A` at 3.88:1: readable when you look for them, quiet when you don't.
 - **One accent.** Aqua marks only what acts or where you are (cursor, function calls, focus). When few things are bright, the bright things mean something.
@@ -138,11 +138,11 @@ The theme is meant for eight-hour sessions, so the goal is less effort per glanc
 ## Accessibility
 
 - Code tokens >= 4.5:1, comments >= 3:1 (tuned to 3.88 on the editor background), UI text >= 4.5:1, secondary/indicator UI >= 3:1 — all WCAG 2.x on `bg.base`.
-- Every syntax pair checked in OKLab ΔE, including simulated deuteranopia and protanopia (Machado 2009), not just normal vision.
+- Every syntax pair checked in OKLab ΔE under simulated deuteranopia and protanopia (gated) and tritanopia (informative), Machado 2009, not just normal vision.
 - Known accepted exceptions:
   - `function` (aqua) vs. `variable` (fgBase) falls under the deuteranopia/protanopia threshold — fixing it would mean glare-level fg or dropping turso's own aqua; position (`name(`) disambiguates.
   - Comment contrast drops below 3:1 under the three strongest selection/find fills, and under most fills stacked on the current line — code itself stays >= 3:1 throughout.
-  - Tritanopia is informative only (~0.01% prevalence) and was not recomputed for the pistachio string; `:`/quotes separate key from value regardless.
+  - Tritanopia is informative only (~0.01% prevalence): lowest pair keyword/number at ΔE 0.061, every pair above 0.05.
 
 ## Languages tested
 
@@ -181,6 +181,7 @@ Never edit `extensions/*/themes/*.json` by hand — they're generated, and a tes
 | `npm test` | vitest, coverage gate >90% on statements/branches/functions/lines |
 | `npm run build` | regenerate `extensions/*/themes` from `src/` |
 | `npm run preview` | writes `preview/index.html` with every language fixture rendered |
+| `npm run images` | renders `docs/images/palette.png` and `preview.png` from `src/` with headless Chrome (macOS) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run lint` | eslint, zero errors |
 | `npm run package` | build the VS Code `.vsix` |

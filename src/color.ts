@@ -1,7 +1,7 @@
 export type Hex = `#${string}`;
-export type Vision = 'normal' | 'deuteranopia' | 'protanopia';
+export type Vision = 'normal' | 'deuteranopia' | 'protanopia' | 'tritanopia';
 
-// Machado, Oliveira & Fernandes 2009, severity 1.0, applied to linear RGB.
+// Machado, Oliveira & Fernandes 2009, severity 1.0, applied to linear RGB and clamped to gamut (01 header).
 const visionMatrices: Record<Exclude<Vision, 'normal'>, number[][]> = {
   deuteranopia: [
     [0.367322, 0.860646, -0.227968],
@@ -12,6 +12,11 @@ const visionMatrices: Record<Exclude<Vision, 'normal'>, number[][]> = {
     [0.152286, 1.052583, -0.204868],
     [0.114503, 0.786281, 0.099216],
     [-0.003882, -0.048116, 1.051998],
+  ],
+  tritanopia: [
+    [1.255528, -0.076749, -0.178779],
+    [-0.078411, 0.930809, 0.147602],
+    [0.004733, 0.691367, 0.3039],
   ],
 };
 
@@ -56,7 +61,7 @@ const linearToOklab = ([red, green, blue]: number[]): number[] => {
 const simulate = (linear: number[], vision: Vision): number[] =>
   vision === 'normal'
     ? linear
-    : visionMatrices[vision].map((row) => row.reduce((sum, weight, index) => sum + weight * linear[index], 0));
+    : visionMatrices[vision].map((row) => Math.min(1, Math.max(0, row.reduce((sum, weight, index) => sum + weight * linear[index], 0))));
 
 export const oklab = (hex: Hex): number[] => linearToOklab(channels(hex).map(toLinear));
 
