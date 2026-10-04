@@ -3,3 +3,7 @@ coverage/
 *.vsix
 .DS_Store
 preview/
+.claude/
+.superpowers/
+docs/specs/
+docs/plans/

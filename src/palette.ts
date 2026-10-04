@@ -55,3 +55,4 @@ export const palette = {
   subtleMinimapHover: '#5B758A4D',
   subtleMinimapActive: '#5B758A59',
 } as const satisfies Record<string, Hex>;
+

@@ -100,7 +100,7 @@ Zed `settings.json`:
 
 ## Palette
 
-20 core colors. Full numbers (OKLCH, WCAG, APCA) and the gates behind each choice: `docs/specs/01-palette.md`.
+20 core colors, each chosen against measured gates (OKLCH, WCAG contrast, APCA).
 
 ![Lupin Theme palette swatches](docs/images/palette.png)
 
@@ -129,7 +129,7 @@ Zed `settings.json`:
 
 ## Design principles
 
-**Attention tiers** (contrast budget shrinks tier by tier): code + cursor > active state/feedback (selection, find, diagnostics) > navigation (sidebar, tabs, scrollbar) > chrome (title bar, status bar). If two elements in different tiers read with the same visual weight, the lower tier is wrong, not the higher one. Full element-by-element map: `docs/specs/02-attention-hierarchy.md`.
+**Attention tiers** (contrast budget shrinks tier by tier): code + cursor > active state/feedback (selection, find, diagnostics) > navigation (sidebar, tabs, scrollbar) > chrome (title bar, status bar). If two elements in different tiers read with the same visual weight, the lower tier is wrong, not the higher one.
 
 **Accent budget:** aqua is the single UI accent — cursor, active tab/view indicator, focus ring, primary button, active line number. Five spots, nowhere else. Two transient extras are allowed because they mark where the eye already is: the matched characters in Zed's pickers and the VS Code progress bar. Chrome never carries accent.
 
@@ -143,7 +143,7 @@ Zed `settings.json`:
 
 ## Color science: why these colors are easy on the eyes
 
-The theme is meant for eight-hour sessions, so the goal is less effort per glance, not maximum punch. Each point below is a measured number in `docs/specs/01-palette.md`.
+The theme is meant for eight-hour sessions, so the goal is less effort per glance, not maximum punch. Each point below is a measured number, enforced by the test suite.
 
 - **Dark blue background, not pure black.** `#0D1318` (OKLCH L 0.18, on hue 244). Bright text on pure `#000` produces halation, a glow that bleeds around letters and is worst for people with astigmatism. A slightly lifted, tinted background reduces it and leaves room for raised panels and popups.
 - **Off-white text, not pure white.** `#E7E8E8` gives 15.2:1 contrast: far above the WCAG 7:1 AAA line, without the glare of 21:1 white on black.
@@ -214,12 +214,10 @@ Never edit `extensions/*/themes/*.json` by hand — they're generated, and a tes
 | `npm run lint` | eslint, zero errors |
 | `npm run package` | build the VS Code `.vsix` |
 
-Specs: `docs/specs/` (research, palette, attention hierarchy, architecture). Plans: `docs/plans/`.
-
 Test suite, one line each:
 
 - `color.test.ts` — contrast/deltaE math against known reference values
-- `palette.test.ts` — every gate in `01-palette.md`: contrast floors, hue separation, CVD
+- `palette.test.ts` — every palette gate: contrast floors, hue separation, CVD
 - `roles.test.ts` — every role resolves to a real palette entry
 - `vscode.test.ts` — required workbench keys and TextMate scopes present, valid hex
 - `zed.test.ts` — output validates against the vendored Zed schema v0.2.0
@@ -246,7 +244,7 @@ Tagged on GitHub: [tags](https://github.com/emersonjds/lupin-theme/tags).
 
 Inspired by the code blocks on [turso.tech](https://turso.tech). Not affiliated with Turso. No Turso logo is used.
 
-Color-theory reference: the Dracula and Dracula Pro specifications — see `docs/specs/05-dracula-lessons.md` for what was adopted and what was changed.
+Color-theory reference: the Dracula and Dracula Pro specifications.
 
 ## License
 
