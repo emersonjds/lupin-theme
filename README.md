@@ -4,6 +4,26 @@ Dark theme for VS Code and Zed, inspired by the code blocks on [turso.tech](http
 
 ![Lupin Theme preview: TypeScript, Java, Rust and SQL](docs/images/preview.png)
 
+## What it is
+
+Lupin is a single dark theme, built for long sessions on ordinary monitors. The background is a near-black blue, the text is a soft off-white, and one bright color (aqua) is kept for the things you act on: the cursor, function calls and keyboard focus. Everything else is deliberately quieter.
+
+Each kind of code gets one color, and that color means the same thing in every language:
+
+| You see | It is |
+|---|---|
+| aqua | a function or method |
+| fuchsia | a keyword that drives the flow (`if`, `return`, `import`) |
+| orchid | a modifier (`public`, `static`, `const`) or `self`/`this` |
+| yellow | a type, class or interface |
+| sky | a property, object key or decorator |
+| pistachio | a string |
+| peach | a fixed value: number, boolean, `null`, `UPPER_CASE` constant, enum member |
+| off-white | a variable or parameter |
+| blue-steel | a comment |
+
+The VS Code and Zed versions are generated from the same palette, so the theme looks the same in both editors. Current version: 0.1.1.
+
 ## Why Lupin
 
 - Colors start from turso.tech's own code blocks, then are tuned for all-day reading: every change is measured, not eyeballed.
@@ -82,7 +102,7 @@ Zed `settings.json`:
 
 20 core colors. Full numbers (OKLCH, WCAG, APCA) and the gates behind each choice: `docs/specs/01-palette.md`.
 
-![Lupin Theme 19-color palette swatches](docs/images/palette.png)
+![Lupin Theme palette swatches](docs/images/palette.png)
 
 | Name | Hex | Role |
 |---|---|---|
@@ -111,7 +131,7 @@ Zed `settings.json`:
 
 **Attention tiers** (contrast budget shrinks tier by tier): code + cursor > active state/feedback (selection, find, diagnostics) > navigation (sidebar, tabs, scrollbar) > chrome (title bar, status bar). If two elements in different tiers read with the same visual weight, the lower tier is wrong, not the higher one. Full element-by-element map: `docs/specs/02-attention-hierarchy.md`.
 
-**Accent budget:** aqua is the single UI accent — cursor, active tab/view indicator, focus ring, primary button, active line number. Five spots, nowhere else. Chrome never carries accent.
+**Accent budget:** aqua is the single UI accent — cursor, active tab/view indicator, focus ring, primary button, active line number. Five spots, nowhere else. Two transient extras are allowed because they mark where the eye already is: the matched characters in Zed's pickers and the VS Code progress bar. Chrome never carries accent.
 
 **Syntax decisions:**
 - Keyword (`if`, `return`, `import`, fuchsia) vs. modifier (`public`, `static`, `final`, orchid) — same hue family, modifier at ~half the chroma, so a Java signature doesn't turn into a wall of one color.
@@ -150,26 +170,34 @@ TypeScript, JavaScript, Java, Kotlin, C#, Python, Go, Rust, C, C++, PHP, Ruby, S
 
 Dockerfile and Shell have sparse TextMate grammars — Dockerfile only colors instructions (command text stays `fg.base`), and shell arguments tokenize as strings. Both are exempted from the theme's "3+ hues per fixture" test gate for that reason.
 
+## Good to know
+
+- **Brackets are not rainbow-colored.** VS Code colors bracket pairs gold, pink and blue by default, outside any theme's palette. Lupin sets all of them to the punctuation color so brackets stay quiet.
+- **`const` does not make a name peach.** A `const` variable in TypeScript keeps the variable color. Only `UPPER_CASE` constants and enum members read as fixed values, which is also how Zed sees them.
+- **Semantic highlighting changes some colors in VS Code.** With the TypeScript native preview (`js/ts.experimental.useTsgo`) there are no semantic tokens, so only the TextMate colors apply. The theme is checked in both modes.
+- **Some differences come from the language grammar, not the theme.** In Rust, `use`, `impl` and `as` share a scope with `fn`. In Ruby, `attr_accessor` reads as a keyword (fuchsia). In Kotlin, `as`, `is` and `in` read as modifiers (orchid).
+- **Fonts are yours to set.** A theme cannot choose a font. See Recommended fonts above.
+
 ## How it works
 
 One palette, one generator per editor:
 
 ```
-palette.ts  ->  roles.ts  ->  targets/{vscode,zed}.ts  ->  extensions/*/themes/*.json
-(raw hex)       (semantic      (role -> editor key)        (generated, committed)
+palette.ts  ->  roles.ts  ->  targets/{vscode,zed}/  ->  extensions/*/themes/*.json
+(raw hex)       (semantic      (role -> editor key)      (generated, committed)
                  roles)
 ```
 
 ```
 src/palette.ts         raw colors; the only file allowed to contain hex
 src/roles.ts           semantic roles (bg.base, syntax.keyword, ...) -> palette entries
-src/color.ts           WCAG contrast, OKLab deltaE, alpha compositing
-src/targets/vscode.ts  roles -> VS Code theme object
-src/targets/zed.ts     roles -> Zed theme family object (schema v0.2.0)
+src/color.ts           WCAG contrast, OKLab deltaE, alpha compositing, CVD simulation
+src/targets/vscode/    roles -> VS Code theme object (colors, token colors, semantic tokens)
+src/targets/zed/       roles -> Zed theme family object (schema v0.2.0)
 scripts/build.ts       writes target objects as JSON into extensions/
 extensions/vscode/     package.json, themes/lupin-theme-color-theme.json
 extensions/zed/        extension.toml, themes/lupin-theme.json
-tests/                 one test file per src module
+tests/                 contrast, hue separation, schema, key coverage, parity, drift
 ```
 
 Never edit `extensions/*/themes/*.json` by hand — they're generated, and a test fails if they drift from `scripts/build.ts` output.
@@ -195,9 +223,18 @@ Test suite, one line each:
 - `roles.test.ts` — every role resolves to a real palette entry
 - `vscode.test.ts` — required workbench keys and TextMate scopes present, valid hex
 - `zed.test.ts` — output validates against the vendored Zed schema v0.2.0
+- `vscode-contrast.test.ts`, `zed-contrast.test.ts` — syntax and UI contrast floors in each editor's real output
+- `parity.test.ts` — both editors assign the same role to the same thing
 - `build.test.ts` — committed `extensions/*/themes/` match fresh build output
 - `hex-only-in-palette.test.ts` — no hex literal outside `palette.ts`
 - `languages.test.ts` — Shiki-tokenizes all 23 fixtures, checks role coverage and hue spread
+
+## Releases
+
+Tagged on GitHub: [tags](https://github.com/emersonjds/lupin-theme/tags).
+
+- **0.1.1** — retune after daily use: strings moved to pistachio (further from the aqua of function calls), constants and enum members joined numbers in peach, the current line became visible, and tritanopia was added to the color-vision checks.
+- **0.1.0** — first release for VS Code and Zed.
 
 ## Roadmap
 
